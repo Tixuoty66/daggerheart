@@ -375,7 +375,8 @@ hgroup>.subtitle:last-child {
   /* own formatting context: sits beside floats (e.g. .card-button) instead of running its background underneath */
   display: flow-root;
   padding: 0.15em 0.35em;
-  background-color: color-mix(in srgb, currentColor 12%, white);
+  /* same tint as --primary-bg-color, so view themes darken it too */
+  background-color: color-mix(in srgb, currentColor var(--tint-amount), var(--tint-base-color));
 }
 
 .large {

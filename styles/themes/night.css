@@ -1,9 +1,12 @@
 /* :root[…] matches the specificity of the light scheme block in default.css, which sets the link colors on :root too */
 :root[data-view-theme="night"] {
+  /* body text a touch below full light, ~12:1 on the dark canvas instead of 15:1, less glare */
+  --night-text-color: color-mix(in srgb, var(--light-color) 90%, black);
+
   /* light links, half transparent underline */
-  --pico-primary: var(--light-color);
-  --pico-primary-underline: color-mix(in srgb, var(--light-color) 50%, transparent);
-  --pico-color: var(--light-color);
+  --pico-primary: var(--night-text-color);
+  --pico-primary-underline: color-mix(in srgb, var(--night-text-color) 50%, transparent);
+  --pico-color: var(--night-text-color);
 
   main {
     background-image: none;
@@ -17,7 +20,7 @@
 
 [data-view-theme="night"] {
 
-  --pico-color: var(--light-color);
+  --pico-color: var(--night-text-color);
   --primary-color: var(--light-color);
 
   /* tints of the theme color mix toward black instead of white, stronger so they still read as a color
@@ -26,17 +29,17 @@
   --tint-amount: 30%;
 
   #page {
-    --pico-color: var(--light-color);
+    --pico-color: var(--night-text-color);
   }
 
   #adversary, #environment {
-    --pico-color: var(--light-color);
+    --pico-color: var(--night-text-color);
   }
 
   /* stat block on dark: light text, dark backgrounds; ID scoped to outrank the entity themes in default.css */
   #adversary .stat-block,
   #environment .stat-block {
-    --stat-block-color: var(--light-color);
+    --stat-block-color: var(--night-text-color);
     --stat-block-stats-bg: color-mix(in srgb, var(--stat-block-bg) 65%, black);
     --stat-block-link: var(--sand-color);
     --stat-block-rule: var(--gray-color);
