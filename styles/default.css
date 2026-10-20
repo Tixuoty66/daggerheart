@@ -179,7 +179,11 @@
   --dark-bg-color: #110F1C;
 
   --primary-color: var(--dark-color);
-  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
+
+  /* light tint of the theme color behind blockquotes, table rows, tabs and panels;
+     color-mix resolves where it's declared, so it's declared again wherever --primary-color changes (main, section.questions) */
+  --tint-base-color: white;
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, var(--tint-base-color));
 
   --pico-background-color: Canvas;
 }
@@ -231,6 +235,9 @@
 /******** 4. Page Layout ********/
 
 main {
+  /* entity themes set --primary-color on main#<entity>, the tint follows it */
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, var(--tint-base-color));
+
   --pico-h1-color: var(--primary-color);
   --pico-h2-color: var(--primary-color);
   --pico-h3-color: var(--primary-color);
@@ -399,7 +406,7 @@ blockquote {
   border-top: 2px solid var(--primary-color);
   border-bottom: 2px solid var(--primary-color);
   border-inline: none;
-  background-color: color-mix(in srgb, var(--primary-color) 12%, white);
+  background-color: var(--primary-bg-color);
 }
 
 pre.code {
@@ -441,7 +448,7 @@ table {
   }
 
   tbody tr:nth-child(even) {
-    background-color: color-mix(in srgb, var(--primary-color) 12%, white);
+    background-color: var(--primary-bg-color);
   }
 }
 
@@ -524,7 +531,7 @@ table.table-responsive {
       min-width: 0;
       padding: 0.5em 0.5em;
       border-bottom: none;
-      background-color: color-mix(in srgb, var(--primary-color) 12%, white);
+      background-color: var(--primary-bg-color);
       color: var(--primary-color);
       font-family: "Eveleth Clean", var(--pico-font-family);
       font-size: 1.15rem;
@@ -610,25 +617,33 @@ table.table-responsive {
 
 /* stat block of adversaries and environments */
 .stat-block {
-  --pico-color: var(--dark-color);
+  /* theme tokens, override these in entity themes and view themes */
+  --stat-block-color: var(--dark-color);
+  --stat-block-bg: var(--primary-bg-color);
+  --stat-block-border: var(--primary-color);
+  --stat-block-stats-bg: white;
+  --stat-block-link: var(--dark-brown-color);
+  --stat-block-rule: #333;
+
+  --pico-color: var(--stat-block-color);
   --pico-typography-spacing-vertical: 0.25rem;
 
-  --pico-h1-color: var(--dark-color);
-  --pico-h2-color: var(--dark-color);
-  --pico-h3-color: var(--dark-color);
-  --pico-h4-color: var(--dark-color);
-  --pico-h5-color: var(--dark-color);
-  --pico-h6-color: var(--dark-color);
+  --pico-h1-color: var(--stat-block-color);
+  --pico-h2-color: var(--stat-block-color);
+  --pico-h3-color: var(--stat-block-color);
+  --pico-h4-color: var(--stat-block-color);
+  --pico-h5-color: var(--stat-block-color);
+  --pico-h6-color: var(--stat-block-color);
 
-  --pico-primary-hover: #000;
-  --pico-primary-hover-underline: #000;
+  --pico-primary-hover: var(--stat-block-color);
+  --pico-primary-hover-underline: var(--stat-block-color);
 
   line-height: 1.33;
   margin: -0.4rem;
   padding: 0.6rem;
   border-radius: 0.6rem;
-  border: 2px solid var(--primary-color);
-  background-color: var(--primary-bg-color);
+  border: 2px solid var(--stat-block-border);
+  background-color: var(--stat-block-bg);
 
   .token {
     float: right;
@@ -643,12 +658,12 @@ table.table-responsive {
     h1.title {
       font-size: 1.7rem;
       margin-bottom: 0.1rem;
-      --pico-color: var(--dark-color);
+      --pico-color: var(--stat-block-color);
     }
   }
 
   hgroup>.subtitle:last-child {
-    --pico-color: var(--dark-color);
+    --pico-color: var(--stat-block-color);
     font-size: 1.3rem;
     font-weight: 700;
     line-height: 1.15;
@@ -661,12 +676,12 @@ table.table-responsive {
     }
   }
 
-  .box {
+  .stats {
     padding: 0.5rem 0.8rem;
-    background-color: white;
+    background-color: var(--stat-block-stats-bg);
     margin-top: 0.4rem;
-    border-top: 2px solid var(--primary-color);
-    border-bottom: 2px solid var(--primary-color);
+    border-top: 2px solid var(--stat-block-border);
+    border-bottom: 2px solid var(--stat-block-border);
 
     hr {
       margin-left: -0.6rem;
@@ -674,7 +689,7 @@ table.table-responsive {
       height: 0;
       background: none;
       border: none;
-      border-top: 2px dotted var(--primary-color);
+      border-top: 2px dotted var(--stat-block-border);
     }
   }
 
@@ -704,14 +719,14 @@ table.table-responsive {
   }
 
   a {
-    --pico-color: var(--dark-brown-color);
-    --pico-underline: var(--dark-brown-color);
+    --pico-color: var(--stat-block-link);
+    --pico-underline: var(--stat-block-link);
   }
 
   hr {
     margin: 0.4rem 0;
     height: 1px;
-    background-color: #333;
+    background-color: var(--stat-block-rule);
     border: none;
   }
 }
@@ -1426,25 +1441,22 @@ html:has(dialog[open]) {
 
 /******** 11. Entity Themes & Special Sections ********/
 
-/* theme color per entity page, set on main#<entity> */
+/* theme color per entity page, set on main#<entity>; --primary-bg-color follows it, see main */
 
 #adversary {
   --primary-color: var(--brick-color);
-  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
 
   .stat-block {
-    --primary-color: var(--sand-color);
-    --primary-bg-color: var(--parchment-color);
+    --stat-block-border: var(--sand-color);
+    --stat-block-bg: var(--parchment-color);
   }
 }
 
 #environment {
   --primary-color: var(--gray-color);
-  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
 
   .stat-block {
-    --primary-color: var(--gray-color);
-    --primary-bg-color: var(--light-gray-color);
+    --stat-block-bg: var(--light-gray-color);
   }
 }
 
@@ -1453,7 +1465,6 @@ html:has(dialog[open]) {
 #transformation,
 #beastform {
   --primary-color: var(--green-color);
-  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
 }
 
 #class,
@@ -1467,7 +1478,6 @@ html:has(dialog[open]) {
 
 #page {
   --primary-color: var(--slate-color);
-  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
 }
 
 /* dark page behind a domain card; pico paints the background on :root, so the variable has to be set there */
@@ -1509,6 +1519,7 @@ hgroup.table-header {
 /* background questions: thin headings on a brass tinted panel */
 section.questions {
   --primary-color: var(--brass-color);
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, var(--tint-base-color));
 
   --pico-primary-hover: var(--primary-color);
   --pico-primary-hover-underline: var(--primary-color);
@@ -1530,7 +1541,7 @@ section.questions {
     font-family: "Eveleth Clean", var(--pico-font-family);
   }
 
-  background-color: color-mix(in srgb, var(--primary-color) 12%, white);
+  background-color: var(--primary-bg-color);
 
   margin: calc(-1 * var(--pico-spacing));
   padding: var(--pico-spacing);

@@ -6,10 +6,12 @@
 }
 
 [data-view-theme="night"] {
-  
+
   --pico-color: var(--light-color);
   --primary-color: var(--light-color);
-  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, black);
+
+  /* tints of the theme color mix toward black instead of white */
+  --tint-base-color: black;
 
   #page {
     --pico-color: var(--light-color);
@@ -17,13 +19,23 @@
 
   #adversary {
     --pico-color: var(--light-color);
-    /* --primary-color: var(--light-color); */
-    --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
+  }
 
-    .stat-block {
-      --pico-color: var(--light-color);
-      --primary-color: color-mix(in srgb, var(--bronze-color) 12%, black);
-      --primary-bg-color: color-mix(in srgb, var(--parchment-color) 22%, black);
-    }
+  /* stat block on dark: light text, dark backgrounds; ID scoped to outrank the entity themes in default.css */
+  #adversary .stat-block,
+  #environment .stat-block {
+    --stat-block-color: var(--light-color);
+    --stat-block-stats-bg: color-mix(in srgb, var(--stat-block-bg) 50%, black);
+    --stat-block-link: var(--sand-color);
+    --stat-block-rule: var(--gray-color);
+  }
+
+  #adversary .stat-block {
+    --stat-block-border: var(--brass-color);
+    --stat-block-bg: color-mix(in srgb, var(--parchment-color) 22%, black);
+  }
+
+  #environment .stat-block {
+    --stat-block-bg: color-mix(in srgb, var(--light-gray-color) 22%, black);
   }
 }
