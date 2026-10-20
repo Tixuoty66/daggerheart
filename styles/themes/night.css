@@ -20,8 +20,10 @@
   --pico-color: var(--light-color);
   --primary-color: var(--light-color);
 
-  /* tints of the theme color mix toward black instead of white */
+  /* tints of the theme color mix toward black instead of white, stronger so they still read as a color
+     (table rows, blockquotes, tabs, questions panel) */
   --tint-base-color: black;
+  --tint-amount: 30%;
 
   #page {
     --pico-color: var(--light-color);
@@ -49,10 +51,15 @@
     --stat-block-bg: color-mix(in srgb, var(--light-gray-color) 22%, black);
   }
 
-  /* questions panel (class, transformation): the 12% tint is near black here, so a stronger brass panel
-     with gold headings, the thin heading font needs the extra contrast */
+  /* questions panel (class, transformation): a stronger brass panel than the shared tint, it stands out as a block;
+     gold headings, the thin heading font needs the extra contrast */
   section.questions {
     --primary-color: var(--gold-color);
     --primary-bg-color: color-mix(in srgb, var(--brass-color) 30%, black);
+  }
+
+  /* unselected section tabs (class subclasses): gold label like the questions headings */
+  .tab-bar.band-tabs button:not([aria-selected="true"]) {
+    color: var(--gold-color);
   }
 }

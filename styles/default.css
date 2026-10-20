@@ -183,7 +183,8 @@
   /* light tint of the theme color behind blockquotes, table rows, tabs and panels;
      color-mix resolves where it's declared, so it's declared again wherever --primary-color changes (main, section.questions) */
   --tint-base-color: white;
-  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, var(--tint-base-color));
+  --tint-amount: 12%;
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) var(--tint-amount), var(--tint-base-color));
 
   --pico-background-color: Canvas;
 }
@@ -236,7 +237,7 @@
 
 main {
   /* entity themes set --primary-color on main#<entity>, the tint follows it */
-  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, var(--tint-base-color));
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) var(--tint-amount), var(--tint-base-color));
 
   --pico-h1-color: var(--primary-color);
   --pico-h2-color: var(--primary-color);
@@ -1526,7 +1527,7 @@ hgroup.table-header {
 /* background questions: thin headings on a brass tinted panel */
 section.questions {
   --primary-color: var(--brass-color);
-  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, var(--tint-base-color));
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) var(--tint-amount), var(--tint-base-color));
 
   --pico-primary-hover: var(--primary-color);
   --pico-primary-hover-underline: var(--primary-color);
