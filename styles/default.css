@@ -354,9 +354,9 @@ hgroup {
   }
 }
 
-/* :last-child to outrank Pico's muted hgroup subtitle rule */
+/* :last-child to outrank Pico's muted hgroup subtitle rule; inherit keeps the text color around it (page, .hero, .stat-block, view theme) */
 hgroup>.subtitle:last-child {
-  --pico-color: var(--dark-color);
+  --pico-color: inherit;
   font-size: 1rem;
   line-height: 1.25;
   font-style: italic;
@@ -566,9 +566,8 @@ table.table-responsive {
   --pico-h5-color: var(--text-color);
   --pico-h6-color: var(--text-color);
 
-  hgroup>.subtitle:last-child {
-    --pico-color: white;
-  }
+  /* text outside p, ul, headings… inherits color from the page, see .stat-block */
+  color: var(--text-color);
 
   background-color: #1C2917;
   /* subtle diagonal light: a touch lighter top left, a touch darker bottom right */
@@ -638,6 +637,10 @@ table.table-responsive {
   --pico-primary-hover: var(--stat-block-color);
   --pico-primary-hover-underline: var(--stat-block-color);
 
+  /* pico colors only p, ul, headings… with --pico-color; text outside them (the experience line,
+     a value that breaks out of its <p>) inherits color from the page, dark in every theme */
+  color: var(--stat-block-color);
+
   line-height: 1.33;
   margin: -0.4rem;
   padding: 0.6rem;
@@ -663,7 +666,6 @@ table.table-responsive {
   }
 
   hgroup>.subtitle:last-child {
-    --pico-color: var(--stat-block-color);
     font-size: 1.3rem;
     font-weight: 700;
     line-height: 1.15;
@@ -766,6 +768,11 @@ table.table-responsive {
   background-color: #fff;
   font-family: "Open Sans", sans-serif;
   color: #000;
+
+  /* printed card look in every view theme: pico colors p, ul… and links with these, a theme's light text would vanish on white */
+  --pico-color: #000;
+  --pico-primary: var(--dark-color);
+  --pico-primary-underline: var(--dark-color);
 
   >.card-image {
     position: absolute;
