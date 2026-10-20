@@ -22,7 +22,7 @@
 
     .stat-block {
       --pico-color: var(--light-color);
-      --primary-color: olor-mix(in srgb, var(--bronze-color) 12%, black);
+      --primary-color: color-mix(in srgb, var(--bronze-color) 12%, black);
       --primary-bg-color: color-mix(in srgb, var(--parchment-color) 22%, black);
     }
   }

@@ -3,9 +3,22 @@
  version 1.0
  ----------------
  global styles & theme
+
+ contents
+   1. fonts
+   2. variables
+   3. color schemes
+   4. page layout
+   5. typography
+   6. content elements: lists, blockquote, code, tables
+   7. generic components: tags, tabs, hero
+   8. stat block
+   9. cards: playing card, domain, ancestry, community, subclass, tier picker
+  10. card button, card stage & card modal
+  11. entity themes & special sections
  */
 
-/******** Fonts ********/
+/******** 1. Fonts ********/
 
 @font-face {
   font-family: "Open Sans";
@@ -113,8 +126,7 @@
 }
 
 
-/******** Color Variables ********/
-
+/******** 2. Variables ********/
 
 :root {
   /* default font family */
@@ -172,7 +184,8 @@
   --pico-background-color: Canvas;
 }
 
-/* colors */
+
+/******** 3. Color Schemes ********/
 
 /* Light color scheme (Default) */
 /* Can be forced with data-theme="light" */
@@ -202,7 +215,7 @@
 
 /* Dark color scheme (Auto) */
 /* Automatically enabled if user has Dark mode enabled */
- @media only screen and (prefers-color-scheme: dark) {
+@media only screen and (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --pico-background-color: Canvas;
   }
@@ -213,6 +226,9 @@
 [data-theme="dark"] {
   --pico-background-color: Canvas;
 }
+
+
+/******** 4. Page Layout ********/
 
 main {
   --pico-h1-color: var(--primary-color);
@@ -228,11 +244,6 @@ main {
   /* content wider than the page (e.g. a table that can't shrink further) is cut off instead of widening the page,
      which would zoom out the whole page on mobile; clip, unlike hidden, doesn't make main a scroll container */
   overflow-x: clip;
-}
-
-/* dark page behind a domain card; pico paints the background on :root, so the variable has to be set there */
-:root:has(> body > main#domain-card) {
-  --pico-background-color: var(--dark-bg-color);
 }
 
 /* paper background, except behind a standalone card */
@@ -254,6 +265,14 @@ main:not(:has(> .card-stage)) {
 main section {
   --pico-block-spacing-vertical: 0.6rem;
 }
+
+/* body size is not calculated properly without this */
+p:last-child {
+  margin: 0;
+}
+
+
+/******** 5. Typography ********/
 
 /* heading sizes: geometric scale from 2rem to 1rem, ratio 2^(1/5) ≈ 1.149 per level */
 h1 {
@@ -303,32 +322,13 @@ h6 {
 }
 
 /* gold square before section headings, same as the native "▇  " prefix; drawn as a box so it matches the cap height in any font */
-h4:not(.stat-block *, .stats *)::before {
+h4:not(.stat-block *, .hero *)::before {
   content: "";
   display: inline-block;
   width: 0.7em;
   height: 0.7em;
   margin-right: 0.4em;
   background-color: var(--gold-color);
-}
-
-/* thin display font for any heading, e.g. <h3 class="thin"> */
-.thin,
-.band {
-  --pico-font-weight: 100;
-  font-family: "Eveleth Clean", var(--pico-font-family);
-}
-
-/* thin heading on a translucent band of its own color, e.g. <h3 class="band"> */
-.band {
-  /* own formatting context: sits beside floats (e.g. .card-button) instead of running its background underneath */
-  display: flow-root;
-  padding: 0.15em 0.35em;
-  background-color: color-mix(in srgb, currentColor 12%, white);
-}
-
-.large {
-  font-size: 3rem;
 }
 
 h1.title {
@@ -355,36 +355,27 @@ hgroup>.subtitle:last-child {
   font-style: italic;
 }
 
-/* table entity: title left, roll button top right */
-hgroup.table-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-
-  h1 {
-    min-width: 0;
-  }
-
-  /* hgroup.table-header outranks Pico's muted hgroup subtitle rule on the last child */
-  >.table-roll {
-    --pico-color: #fff;
-    --pico-text-decoration: none;
-    flex: none;
-    padding: 0.5rem 0.9rem;
-    border-radius: 999px;
-    background-color: var(--primary-color);
-    font-size: 0.85rem;
-    font-weight: 700;
-    line-height: 1.2;
-    text-transform: uppercase;
-    white-space: nowrap;
-
-    &:active {
-      opacity: 0.7;
-    }
-  }
+/* thin display font for any heading, e.g. <h3 class="thin"> */
+.thin,
+.band {
+  --pico-font-weight: 100;
+  font-family: "Eveleth Clean", var(--pico-font-family);
 }
+
+/* thin heading on a translucent band of its own color, e.g. <h3 class="band"> */
+.band {
+  /* own formatting context: sits beside floats (e.g. .card-button) instead of running its background underneath */
+  display: flow-root;
+  padding: 0.15em 0.35em;
+  background-color: color-mix(in srgb, currentColor 12%, white);
+}
+
+.large {
+  font-size: 3rem;
+}
+
+
+/******** 6. Content Elements ********/
 
 ul {
   margin: 0 0 var(--pico-typography-spacing-vertical);
@@ -402,7 +393,6 @@ ul {
   }
 }
 
-
 /* sidebar box: theme colored rules above and below, tinted background */
 blockquote {
   padding: var(--pico-spacing);
@@ -417,13 +407,208 @@ pre.code {
   overflow-wrap: anywhere;
 }
 
-/* body size is not calculated properly without this */
-p:last-child {
-  margin: 0;
+/* full width, header on the theme color, every other row tinted with it */
+table {
+  --pico-background-color: none;
+  margin-bottom: var(--pico-spacing);
+  width: 100%;
+
+  td,
+  th {
+    padding: 0.4rem 0.6rem;
+    border: none;
+  }
+
+  tfoot td,
+  tfoot th,
+  thead td,
+  thead th {
+    font-size: 0.9rem;
+    --pico-font-weight: 600;
+  }
+
+  thead td,
+  thead th {
+    --pico-font-weight: 800;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-transform: uppercase;
+
+    a {
+      color: inherit;
+      text-decoration-color: currentColor;
+    }
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: color-mix(in srgb, var(--primary-color) 12%, white);
+  }
 }
 
-/* base stat block used in adversaries */
+/* black or white header text, whichever reads better on the theme color (white on light sand would be unreadable) */
+@supports (color: contrast-color(red)) {
+  table :is(thead td, thead th) {
+    color: contrast-color(var(--primary-color));
+  }
+}
 
+/*
+  scroll box for a table wider than the page, e.g. <div class="table-responsive"><table>…</table></div>;
+  on the table itself it scrolls too, but then sizes to its content instead of the full width
+*/
+.table-responsive {
+  margin-bottom: var(--pico-spacing);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+
+  >table {
+    margin-bottom: 0;
+  }
+}
+
+table.table-responsive {
+  display: block;
+}
+
+
+/******** 7. Generic Components ********/
+
+.tags {
+  display: flex;
+  gap: 0.5rem;
+
+  .tag {
+    display: inline-block;
+    border: 1px solid var(--primary-color);
+    border-radius: 6px;
+    background-color: white;
+    padding: 0.3rem 0.5rem;
+    text-transform: uppercase;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+}
+
+/*
+  tabs: [role=tablist] holds [role=tab] buttons, each aria-controls the id of a content block;
+  only the selected block is visible, the others get the hidden attribute
+*/
+.tab-bar {
+  display: flex;
+  margin-bottom: 1rem;
+
+  button {
+    flex: 1;
+    margin: 0;
+    padding: 0.5rem;
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+
+  button[aria-selected="true"] {
+    color: white;
+  }
+
+  /* section tabs in the .band heading style; names wrap instead of scrolling sideways */
+  &.band-tabs {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+
+    button {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0.5em 0.5em;
+      border-bottom: none;
+      background-color: color-mix(in srgb, var(--primary-color) 12%, white);
+      color: var(--primary-color);
+      font-family: "Eveleth Clean", var(--pico-font-family);
+      font-size: 1.15rem;
+      font-weight: 100;
+      line-height: 1.15;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    button[aria-selected="true"] {
+      background-color: var(--primary-color);
+      color: white;
+    }
+  }
+}
+
+/* dark green panel at the top of a page, edge to edge, white text, e.g. <section class="hero"> on the class entity */
+.hero {
+  --text-color: white;
+  --pico-color: var(--text-color);
+
+  --pico-primary: var(--text-color);
+  --pico-primary-underline: var(--text-color);
+
+  --pico-primary-hover: var(--primary-color);
+  --pico-primary-hover-underline: var(--primary-color);
+
+  --pico-h1-color: var(--text-color);
+  --pico-h2-color: var(--text-color);
+  --pico-h3-color: var(--text-color);
+  --pico-h4-color: var(--text-color);
+  --pico-h5-color: var(--text-color);
+  --pico-h6-color: var(--text-color);
+
+  hgroup>.subtitle:last-child {
+    --pico-color: white;
+  }
+
+  background-color: #1C2917;
+  /* subtle diagonal light: a touch lighter top left, a touch darker bottom right */
+  background-image: linear-gradient(to bottom right,
+    color-mix(in srgb, #1C2917, white 6%),
+    color-mix(in srgb, #1C2917, black 20%));
+
+  margin: calc(-1 * var(--pico-spacing));
+  padding: var(--pico-spacing);
+  margin-bottom: calc(1.4 * var(--pico-spacing));
+
+  blockquote {
+    background-color: transparent;
+    border-top: none;
+    border-bottom: none;
+    border-left: 3px solid var(--primary-color);
+  }
+
+  /* white text throughout; rows tinted with translucent white instead of the light theme tint, which would hide the text */
+  table {
+    thead td,
+    thead th {
+      color: var(--text-color);
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: color-mix(in srgb, var(--text-color) 10%, transparent);
+    }
+  }
+
+  .features {
+
+    /* indent everything below the heading */
+    > :not(h4) {
+      padding-left: 0.6em;
+    }
+
+    ul {
+      padding-left: 2.2em;
+    }
+  }
+}
+
+
+/******** 8. Stat Block ********/
+
+/* stat block of adversaries and environments */
 .stat-block {
   --pico-color: var(--dark-color);
   --pico-typography-spacing-vertical: 0.25rem;
@@ -531,6 +716,10 @@ p:last-child {
   }
 }
 
+.stat-block:not(:only-child) {
+  margin-bottom: 1rem;
+}
+
 @media (min-width: 476px) {
   .stat-block {
     padding: 0.8rem;
@@ -543,266 +732,8 @@ p:last-child {
   }
 }
 
-#adversary {
-  --primary-color: var(--brick-color);
-  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
 
-  .stat-block {
-    --primary-color: var(--sand-color);
-    --primary-bg-color: var(--parchment-color);
-  }
-}
-
-#environment {
-  --primary-color: var(--gray-color);
-  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
-
-  .stat-block {
-    --primary-color: var(--gray-color);
-    --primary-bg-color: var(--light-gray-color);
-  }
-}
-
-#ancestry,
-#community,
-#transformation,
-#beastform {
-  --primary-color: var(--green-color);
-  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
-}
-
-#class,
-#subclass {
-  --primary-color: var(--brass-color);
-}
-
-#table {
-  --primary-color: var(--sienna-color);
-}
-
-#class {
-  section.stats {
-    --text-color: white;
-    --pico-color: var(--text-color);
-
-    --pico-primary: var(--text-color);
-    --pico-primary-underline: var(--text-color);
-
-    --pico-primary-hover: var(--primary-color);
-    --pico-primary-hover-underline: var(--primary-color);
-
-    --pico-h1-color: var(--text-color);
-    --pico-h2-color: var(--text-color);
-    --pico-h3-color: var(--text-color);
-    --pico-h4-color: var(--text-color);
-    --pico-h5-color: var(--text-color);
-    --pico-h6-color: var(--text-color);
-
-    hgroup>.subtitle:last-child {
-      --pico-color: white;
-    }
-
-    background-color: #1C2917;
-    /* subtle diagonal light: a touch lighter top left, a touch darker bottom right */
-    background-image: linear-gradient(to bottom right,
-      color-mix(in srgb, #1C2917, white 6%),
-      color-mix(in srgb, #1C2917, black 20%));
-
-
-    margin: calc(-1 * var(--pico-spacing));
-    padding: var(--pico-spacing);
-    margin-bottom: calc(1.4 * var(--pico-spacing));
-
-    blockquote {
-      background-color: transparent;
-      border-top: none;
-      border-bottom: none;
-      border-left: 3px solid var(--primary-color);
-    }
-
-    .features {
-
-      /* indent everything below the heading */
-      > :not(h4) {
-        padding-left: 0.6em;
-      }
-
-      ul {
-        padding-left: 2.2em;
-      }
-    }
-  }
-}
-
-section.questions {
-  --primary-color: var(--brass-color);
-
-  --pico-primary-hover: var(--primary-color);
-  --pico-primary-hover-underline: var(--primary-color);
-
-  --pico-h1-color: var(--primary-color);
-  --pico-h2-color: var(--primary-color);
-  --pico-h3-color: var(--primary-color);
-  --pico-h4-color: var(--primary-color);
-  --pico-h5-color: var(--primary-color);
-  --pico-h6-color: var(--primary-color);
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    --pico-font-weight: 100;
-    font-family: "Eveleth Clean", var(--pico-font-family);
-  }
-
-  background-color: color-mix(in srgb, var(--primary-color) 12%, white);
-
-  margin: calc(-1 * var(--pico-spacing));
-  padding: var(--pico-spacing);
-  margin-block: calc(2 * var(--pico-spacing));
-}
-
-#page {
-  --primary-color: var(--slate-color);
-  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
-}
-
-/*
-  scroll box for a table wider than the page, e.g. <div class="table-responsive"><table>…</table></div>;
-  on the table itself it scrolls too, but then sizes to its content instead of the full width
-*/
-.table-responsive {
-  margin-bottom: var(--pico-spacing);
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-
-  >table {
-    margin-bottom: 0;
-  }
-}
-
-table.table-responsive {
-  display: block;
-}
-
-/* full width, header on the theme color, every other row tinted with it */
-table {
-  --pico-background-color: none;
-  margin-bottom: var(--pico-spacing);
-  width: 100%;
-
-  td,
-  th {
-    padding: 0.4rem 0.6rem;
-    border: none;
-  }
-
-  tfoot td,
-  tfoot th,
-  thead td,
-  thead th {
-    font-size: 0.9rem;
-    --pico-font-weight: 600;
-  }
-
-  thead td,
-  thead th {
-    --pico-font-weight: 800;
-    background-color: var(--primary-color);
-    color: #fff;
-    text-transform: uppercase;
-
-    a {
-      color: inherit;
-      text-decoration-color: currentColor;
-    }
-  }
-
-  tbody tr:nth-child(even) {
-    background-color: color-mix(in srgb, var(--primary-color) 12%, white);
-  }
-}
-
-/* black or white header text, whichever reads better on the theme color (white on light sand would be unreadable) */
-@supports (color: contrast-color(red)) {
-  table :is(thead td, thead th) {
-    color: contrast-color(var(--primary-color));
-  }
-}
-
-.stat-block:not(:only-child) {
-  margin-bottom: 1rem;
-}
-
-.tags {
-  display: flex;
-  gap: 0.5rem;
-
-  .tag {
-    display: inline-block;
-    border: 1px solid var(--primary-color);
-    border-radius: 6px;
-    background-color: white;
-    padding: 0.3rem 0.5rem;
-    text-transform: uppercase;
-    font-size: 0.6rem;
-    font-weight: 600;
-    color: var(--primary-color);
-  }
-}
-
-/*
-  tabs: [role=tablist] holds [role=tab] buttons, each aria-controls the id of a content block;
-  only the selected block is visible, the others get the hidden attribute
-*/
-.tab-bar {
-  display: flex;
-  margin-bottom: 1rem;
-
-  button {
-    flex: 1;
-    margin: 0;
-    padding: 0.5rem;
-    background: none;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-    color: var(--primary-color);
-    font-weight: 600;
-  }
-
-  button[aria-selected="true"] {
-    color: white;
-  }
-
-  /* section tabs in the .band heading style; names wrap instead of scrolling sideways */
-  &.band-tabs {
-    flex-wrap: wrap;
-    gap: 0.25rem;
-
-    button {
-      flex: 1 1 0;
-      min-width: 0;
-      padding: 0.5em 0.5em;
-      border-bottom: none;
-      background-color: color-mix(in srgb, var(--primary-color) 12%, white);
-      color: var(--primary-color);
-      font-family: "Eveleth Clean", var(--pico-font-family);
-      font-size: 1.15rem;
-      font-weight: 100;
-      line-height: 1.15;
-      text-transform: uppercase;
-      overflow-wrap: anywhere;
-    }
-
-    button[aria-selected="true"] {
-      background-color: var(--primary-color);
-      color: white;
-    }
-  }
-}
+/******** 9. Cards ********/
 
 /* playing card, html version of the native card partials (views/partials/*-card.json) */
 .card {
@@ -908,6 +839,8 @@ table {
     }
   }
 }
+
+/* card variants below share specificity with .card rules above, keep them after it */
 
 /* domain card, html version of views/domain-card.json: banner and recall cost over the image, divider above the text */
 .domain-card {
@@ -1028,6 +961,7 @@ table {
   }
 }
 
+/* community card */
 .community-card {
 
   >.card-spacer {
@@ -1260,6 +1194,9 @@ details.card-tier-picker {
   --picker-menu-bg: rgba(44, 44, 46, 0.8);
 }
 
+
+/******** 10. Card Button, Card Stage & Card Modal ********/
+
 /*
   centers a card on screen; transform moves it visually without changing layout,
   so the page still reports the card's own height (auto-sized webviews get 0 offset)
@@ -1484,4 +1421,118 @@ dialog.card-modal {
 /* page behind an open modal doesn't scroll */
 html:has(dialog[open]) {
   overflow: hidden;
+}
+
+
+/******** 11. Entity Themes & Special Sections ********/
+
+/* theme color per entity page, set on main#<entity> */
+
+#adversary {
+  --primary-color: var(--brick-color);
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
+
+  .stat-block {
+    --primary-color: var(--sand-color);
+    --primary-bg-color: var(--parchment-color);
+  }
+}
+
+#environment {
+  --primary-color: var(--gray-color);
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
+
+  .stat-block {
+    --primary-color: var(--gray-color);
+    --primary-bg-color: var(--light-gray-color);
+  }
+}
+
+#ancestry,
+#community,
+#transformation,
+#beastform {
+  --primary-color: var(--green-color);
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
+}
+
+#class,
+#subclass {
+  --primary-color: var(--brass-color);
+}
+
+#table {
+  --primary-color: var(--sienna-color);
+}
+
+#page {
+  --primary-color: var(--slate-color);
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
+}
+
+/* dark page behind a domain card; pico paints the background on :root, so the variable has to be set there */
+:root:has(> body > main#domain-card) {
+  --pico-background-color: var(--dark-bg-color);
+}
+
+/* table entity: title left, roll button top right */
+hgroup.table-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+
+  h1 {
+    min-width: 0;
+  }
+
+  /* hgroup.table-header outranks Pico's muted hgroup subtitle rule on the last child */
+  >.table-roll {
+    --pico-color: #fff;
+    --pico-text-decoration: none;
+    flex: none;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    background-color: var(--primary-color);
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    &:active {
+      opacity: 0.7;
+    }
+  }
+}
+
+/* background questions: thin headings on a brass tinted panel */
+section.questions {
+  --primary-color: var(--brass-color);
+
+  --pico-primary-hover: var(--primary-color);
+  --pico-primary-hover-underline: var(--primary-color);
+
+  --pico-h1-color: var(--primary-color);
+  --pico-h2-color: var(--primary-color);
+  --pico-h3-color: var(--primary-color);
+  --pico-h4-color: var(--primary-color);
+  --pico-h5-color: var(--primary-color);
+  --pico-h6-color: var(--primary-color);
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    --pico-font-weight: 100;
+    font-family: "Eveleth Clean", var(--pico-font-family);
+  }
+
+  background-color: color-mix(in srgb, var(--primary-color) 12%, white);
+
+  margin: calc(-1 * var(--pico-spacing));
+  padding: var(--pico-spacing);
+  margin-block: calc(2 * var(--pico-spacing));
 }
