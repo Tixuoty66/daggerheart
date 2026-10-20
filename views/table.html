@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="table" class="container-fluid" data-page-content>
+  <hgroup class="table-header">
+    <h1 class="title">{{ name }}</h1>
+    <a class="table-roll" href="{{ rollURL }}">Roll{% if formula %} {{ formula }}{% endif %}</a>
+  </hgroup>
+
+  {% if descr %}{{ descr|md }}{% endif %}
+
+  {{ content }}
+
+  {% if notes %}
+  <h3>{{ 'Common.Notes'|l }}</h3>
+  {{ notes|md }}
+  {% endif %}
+
+  {% include "footer.html" %}
+</main>
+{% endblock %}
+{% block scripts %}
+{% endblock %}

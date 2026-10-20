@@ -5,8 +5,7 @@
     "collection": {
       "label": "adversaries"
     },
-    "loadable": true,
-    // "renderer": "html"
+    "loadable": true
   },
   {
     "name": "Environment",
@@ -71,6 +70,20 @@
     "label": "subclass",
     "collection": {
       "label": "subclasses"
+    },
+  },
+  {
+    "name": "Transformation",
+    "label": "transformation",
+    "collection": {
+      "label": "transformations"
+    },
+  },
+  {
+    "name": "Beastform",
+    "label": "beastform",
+    "collection": {
+      "label": "beastforms"
     },
   },
   {

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="environment" class="container-fluid">
+
+  <section class="stat-block">
+    {% if token %}
+    <a class="token"  href="{{token|resolvePath}}" target="_blank"><img src="{{token|resolvePath}}" width="80", height="80" /></a>
+    {% endif %}
+
+    <hgroup>
+      <h1 class="title">{{name}}</h1>
+      <p class="subtitle">{{data.tier|map: 'Tier'}} {{data.type|map: 'EnvironmentType'}} {{data.typeDetail|brackets}}</p>
+    </hgroup>
+    
+    {% if descr %}
+    <div class="descr">
+    {{descr|md}}
+    </div>
+    {% endif %}
+    {% if data.impulses %}
+    <p><strong>{{'Environment.Impulses'|l}}:</strong> {{data.impulses}}</p>
+    {% endif %}
+
+    <div class="box">
+      {% markdown -%}
+      {% include "environment-primary.md" %}
+      {% endmarkdown %}
+    </div>
+    
+    <div class="features">
+      <h4>{{ 'Adversary.Features'|l }}</h4>
+
+      {% for feature in data.features %}
+      {% markdown -%}
+      {% if name %}***{{feature.name}}{{feature.nameDetail|brackets|prefix: ' '}} - {{feature.type|default: 'action'|map: 'AdversaryFeatureType'}}:***{% endif %} {{feature.text}}
+      {% endmarkdown %}
+      {% endfor %}
+    </div>
+    
+  </section>
+
+  {% if notes %}
+  <h3>{{'Common.Notes'|l}}</h3>
+  {{notes|md}}
+  {% endif %}
+
+  {% if image %}
+  <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
+    <a href="{{image|resolvePath}}" target="_blank"><img style="height: 100%; max-height: 512px;" src="{{image|resolvePath}}" /></a>
+  </div>
+  {% endif %}
+
+  {% include "footer.html" %}
+</main>
+{% endblock %}

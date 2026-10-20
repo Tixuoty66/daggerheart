@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="domain-card" class="container-fluid">
+  <div class="card-stage">
+    <!-- domain card, html version of domain-card.json -->
+    <div class="card domain-card domain-{{data.domain}}">
+      <img class="card-image"
+        src="{% if image %}{{image|resolvePath}}{% else %}{{env.systemURL|default: '/'}}images/empty.png{% endif %}"
+        alt="" />
+
+      <!-- domain banner with level, recall cost -->
+      <div class="card-header">
+        <div class="card-banner">
+          <img src="{{env.systemURL|default: '/'}}images/banners/banner-{{data.domain}}.webp" alt="" />
+          <span class="card-level">{{data.level}}</span>
+        </div>
+        <div class="card-recall">
+          <img src="{{env.systemURL|default: '/'}}images/cost.webp" alt="" />
+          <span>{{data.recall}}</span>
+        </div>
+      </div>
+
+      <div class="card-spacer"></div>
+
+      <div class="card-content">
+        
+        <div class="card-divider">
+          <img src="{{env.systemURL|default: '/'}}images/dividers/domain-divider-{{data.domain}}.png" alt="" />
+          <span class="card-type">{{data.type|map: 'DomainCardType'}}</span>
+        </div>
+
+        <div class="card-text">
+          <h2 class="card-title">{{name}}</h2>
+
+          {% if descr %}
+          <div class="card-body">
+            {{descr|md}}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

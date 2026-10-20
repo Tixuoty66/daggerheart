@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="page" class="container-fluid" data-page-content>
+  {% if format != "markdown" %}{{ content }}{% endif %}
+</main>
+{% endblock %}
+{% block scripts %}
+{{ runtime }}
+{% endblock %}

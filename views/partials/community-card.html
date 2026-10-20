@@ -1,0 +1,30 @@
+<!-- ancestry card, html version of ancestry-card.json; used by the ancestry view modal and the standalone ancestry-card view -->
+<div class="card community-card">
+  <img class="card-image"
+    src="{% if image %}{{image|resolvePath}}{% else %}{{env.systemURL|default: '/'}}images/empty.png{% endif %}"
+    alt="" />
+
+  <div class="card-spacer"></div>
+
+  <div class="card-content">
+    <div class="card-divider">
+      <img src="{{env.systemURL|default: '/'}}images/dividers/community-divider.png" alt="" />
+    </div>
+
+    <div class="card-text">
+      <h2 class="card-title">{{name}}</h2>
+
+      {% if data.descr %}
+      <p class="card-subtitle">{{data.descr}}</p>
+      {% endif %}
+
+      <div class="card-body">
+        {% for feature in data.features %}
+        {% markdown -%}
+        ***{{feature.name}}:*** {{feature.text}}
+        {% endmarkdown %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

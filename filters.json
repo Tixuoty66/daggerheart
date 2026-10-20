@@ -248,4 +248,40 @@
       },
     ]
   },
+   "Beastform": {
+    "params": [
+      {
+        "attribute": "data.tier",
+        "attributeType": "TierLevels",
+        "title": "Common.Tier",
+      },
+      {
+        "attribute": "source",
+        "title": "Common.Source",
+        "dynamic": true
+      }
+    ],
+    "group": [
+      {
+        "attribute": "data.tier",
+        "attributeType": "Tier",
+        "title": "Common.Tier",
+      },
+      {
+        "attribute": "name",
+        "title": "Common.Name"
+      }
+    ],
+    "sort": [
+      {
+        "attribute": "name",
+        "title": "Common.Name",
+      },
+      {
+        "attribute": "data.tier",
+        "attributeType": "Tier",
+        "title": "Common.Tier",
+      }
+    ]
+  },
 }

@@ -24,7 +24,6 @@
       "type": "group",
       "fields": [
         {
-          "title": "Common.Description",
           "type": "textArea",
           "attribute": "text",
           "custom": {

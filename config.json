@@ -1,6 +1,9 @@
 {
   "entities": {
     "Default": {
+      "view": {
+        "renderer": "html"
+      },
       "combatant": {
         "bars": [
           {
@@ -20,23 +23,23 @@
     },
     "Adversary": {
       "role": "enemy",
-       "collection": {
+      "collection": {
         "detail": "{{data.tier|map: 'Tier'}} {{data.type|map: 'AdversaryType'}} {{data.typeDetail|brackets}}"
       }
     },
     "Environment": {
       "role": "enemy",
-       "collection": {
+      "collection": {
         "detail": "{{data.tier|map: 'Tier'}} {{data.type|map: 'EnvironmentType'}} {{data.typeDetail|brackets}}"
       }
     },
     "Weapon": {
-       "collection": {
+      "collection": {
         "detail": "{% if data.category %}{{data.category|map: 'WeaponCategory'}}{% else %}{{'Entity.Weapon'|l}}{% endif %} - {{data.tier|map: 'Tier'}}"
       }
     },
     "DomainCard": {
-       "collection": {
+      "collection": {
         "detail": "{{'Common.Level'|l}} {{data.level}} {{data.type|map: 'DomainCardType'}}"
       }
     },
@@ -47,6 +50,26 @@
       }
     }
   },
+  "resources": [
+    {
+      "id": "fear",
+      "label": "Fear",
+      "min": 0,
+      "max": 12,
+      "visibility": "players"
+    },
+    {
+      "id": "countdown",
+      "type": "countdown",
+      "label": "Coundown",
+      "icon": "gi-sands-of-time",
+      "min": 0,
+      "visibility": "players"
+    }
+  ],
+  "viewThemes": [
+    { "id": "night", "label": "Night" }
+  ],
   "combat": {
     "initiative": {
       "mode": "fixed"

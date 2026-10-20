@@ -1,0 +1,85 @@
+<!-- subclass card, html version of subclass-card.json; the picker below the card switches between foundation, specialization and mastery -->
+<div class="subclass-card-stack">
+  <div class="card subclass-card">
+    <img class="card-image"
+      src="{% if image %}{{image|resolvePath}}{% else %}{{env.systemURL|default: '/'}}images/empty.png{% endif %}"
+      alt="" />
+
+    <!-- class banner painted over the image -->
+    <div class="card-header">
+      <img class="card-banner" src="{{env.systemURL|default: '/'}}images/banners/subclass/{{data.class|lowercase}}-banner.webp" alt="" />
+    </div>
+
+    <div class="card-spacer"></div>
+
+    <div class="card-content">
+      <div class="card-divider">
+        <img src="{{env.systemURL|default: '/'}}images/dividers/subclass/{{data.class|lowercase}}-divider.webp" alt="" />
+        <span class="card-type">{{data.class}}</span>
+      </div>
+
+      <div class="card-text">
+        <h2 class="card-title">{{name}}</h2>
+
+        <div class="card-tier" data-tier="foundation">
+          <p class="card-subtitle">Foundation</p>
+
+          {% if data.spellcastTrait %}
+          <p class="card-spellcast-trait"><strong>{{'Subclass.SpellcastTrait'|l}}:</strong> {{data.spellcastTrait|map: 'Trait'}}</p>
+          {% endif %}
+
+          <div class="card-body">
+            {% for feature in data.foundations %}
+            {% markdown -%}
+            ***{{feature.name}}:*** {{feature.text}}
+            {% endmarkdown %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="card-tier" data-tier="specialization">
+          <p class="card-subtitle">Specialization</p>
+
+          <div class="card-body">
+            {% for feature in data.specializations %}
+            {% markdown -%}
+            ***{{feature.name}}:*** {{feature.text}}
+            {% endmarkdown %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="card-tier" data-tier="mastery">
+          <p class="card-subtitle">Mastery</p>
+
+          <div class="card-body">
+            {% for feature in data.masteries %}
+            {% markdown -%}
+            ***{{feature.name}}:*** {{feature.text}}
+            {% endmarkdown %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- tier picker, button with a pull-down list; the checked radio shows its .card-tier and its name on the button -->
+  <details class="card-tier-picker">
+    <summary>
+      <span data-tier="foundation">Foundation</span>
+      <span data-tier="specialization">Specialization</span>
+      <span data-tier="mastery">Mastery</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 10l5 5 5-5" />
+      </svg>
+    </summary>
+
+    <!-- inline handlers, scripts in the partial don't run when reloadMainSection() replaces <main> -->
+    <fieldset>
+      <label><input type="radio" name="subclass-tier" value="foundation" checked onchange="this.closest('details').open = false" /> Foundation</label>
+      <label><input type="radio" name="subclass-tier" value="specialization" onchange="this.closest('details').open = false" /> Specialization</label>
+      <label><input type="radio" name="subclass-tier" value="mastery" onchange="this.closest('details').open = false" /> Mastery</label>
+    </fieldset>
+  </details>
+</div>

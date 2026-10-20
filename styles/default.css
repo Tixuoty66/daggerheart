@@ -1,0 +1,1487 @@
+/*
+ Encounter+ iOS
+ version 1.0
+ ----------------
+ global styles & theme
+ */
+
+/******** Fonts ********/
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-ExtraBoldItalic.ttf") format("truetype");
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Eveleth Clean";
+  src: url("../fonts/Eveleth Clean Thin.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Eveleth Clean";
+  src: url("../fonts/Eveleth Clean Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Zilla Slab";
+  src: url("../fonts/ZillaSlab-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+
+/******** Color Variables ********/
+
+
+:root {
+  /* default font family */
+  --pico-font-family: "Open Sans";
+  --pico-font-weight: 400;
+  --pico-typography-spacing-vertical: 0.6rem;
+
+  /* use this variable to change default font size */
+  /* --font-size: 100%; */
+  --font-size: 87.5%;
+  /* --font-size: 93.75%; */
+  /* --font-size: 106.25%; */
+  /* --font-size: 112.5%; */
+  /* --font-size: 118.75%; */
+
+  /* calculate font size based on default font size and custom font scale */
+  --pico-font-size: calc(var(--font-size, 100%) * var(--font-scale, 1));
+
+  line-height: 1.4;
+
+  /* prevent horizontal bounce */
+  overscroll-behavior-x: none;
+
+  --light-color: #FAF3E6;
+  --dark-color: #231F20;
+
+  --brass-color: #8E7E49;
+  --gold-color: #D2B25F;
+  --green-color: #505C3A;
+  --parchment-color: #F4EFE5;
+  --sand-color: #D1C1A3;
+  --light-gray-color: #EBECEC;
+  --gray-color: #9EA0A3;
+
+  /* adversaries */
+  --brick-color: #8F332E;
+
+  /* equipment */
+  --sienna-color: #9B5430;
+
+  --slate-color: #426670;
+
+  --dark-brown-color: rgb(56, 34, 20);
+  --light-brown-color: #5F3C28;
+  --yellow-color: #DBC385;
+  --blue-color: #002664;
+  --purple-color: #54166E;
+
+  --light-bg-color: #FEFEFC;
+  --dark-bg-color: #110F1C;
+
+  --primary-color: var(--dark-color);
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
+
+  --pico-background-color: Canvas;
+}
+
+/* colors */
+
+/* Light color scheme (Default) */
+/* Can be forced with data-theme="light" */
+[data-theme=light],
+:root:not([data-theme=dark]),
+:host(:not([data-theme=dark])) {
+  --pico-color: var(--dark-color);
+
+  --pico-h1-color: var(--primary-color);
+  --pico-h2-color: var(--primary-color);
+  --pico-h3-color: var(--primary-color);
+  --pico-h4-color: var(--primary-color);
+  --pico-h5-color: var(--primary-color);
+  --pico-h6-color: var(--primary-color);
+
+  --pico-primary: var(--dark-color);
+  --pico-primary-underline: var(--dark-color);
+
+  --pico-primary-hover: var(--primary-color);
+  --pico-primary-hover-underline: var(--primary-color);
+
+  --pico-table-border-color: var(--dark-brown-color);
+
+  /* --pico-background-color: var(--dark-bg-color); */
+  --pico-background-color: Canvas;
+}
+
+/* Dark color scheme (Auto) */
+/* Automatically enabled if user has Dark mode enabled */
+ @media only screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --pico-background-color: Canvas;
+  }
+}
+
+/* Dark color scheme (Forced) */
+/* Enabled if forced with data-theme="dark" */
+[data-theme="dark"] {
+  --pico-background-color: Canvas;
+}
+
+main {
+  --pico-h1-color: var(--primary-color);
+  --pico-h2-color: var(--primary-color);
+  --pico-h3-color: var(--primary-color);
+  --pico-h4-color: var(--primary-color);
+  --pico-h5-color: var(--primary-color);
+  --pico-h6-color: var(--primary-color);
+
+  --pico-primary-hover: var(--primary-color);
+  --pico-primary-hover-underline: var(--primary-color);
+
+  /* content wider than the page (e.g. a table that can't shrink further) is cut off instead of widening the page,
+     which would zoom out the whole page on mobile; clip, unlike hidden, doesn't make main a scroll container */
+  overflow-x: clip;
+}
+
+/* dark page behind a domain card; pico paints the background on :root, so the variable has to be set there */
+:root:has(> body > main#domain-card) {
+  --pico-background-color: var(--dark-bg-color);
+}
+
+/* paper background, except behind a standalone card */
+main:not(:has(> .card-stage)) {
+  background-image: url("../images/paper.jpg");
+  background-repeat: repeat;
+}
+
+/* .expanded {
+  body {
+    padding: 0.75rem !important;
+  }
+
+  main {
+    border-radius: 8px;
+  }
+} */
+
+main section {
+  --pico-block-spacing-vertical: 0.6rem;
+}
+
+/* heading sizes: geometric scale from 2rem to 1rem, ratio 2^(1/5) ≈ 1.149 per level */
+h1 {
+  --pico-font-size: 2rem;
+  --pico-line-height: 1.125;
+  --pico-typography-spacing-top: 0rem;
+  --pico-font-weight: 800;
+  text-transform: uppercase;
+}
+
+h2 {
+  --pico-font-size: 1.75rem;
+  --pico-font-weight: 800;
+  --pico-line-height: 1.15;
+  --pico-typography-spacing-top: 1.625rem;
+  text-transform: uppercase;
+}
+
+h3 {
+  --pico-font-size: 1.5rem;
+  --pico-font-weight: 800;
+  --pico-line-height: 1.175;
+  --pico-typography-spacing-top: 1.25rem;
+  text-transform: uppercase;
+}
+
+h4 {
+  --pico-font-size: 1.3125rem;
+  --pico-font-weight: 700;
+  --pico-line-height: 1.2;
+  --pico-typography-spacing-top: 0.874rem;
+  text-transform: uppercase;
+}
+
+h5 {
+  --pico-font-size: 1.15rem;
+  --pico-font-weight: 700;
+  --pico-line-height: 1.225;
+  --pico-typography-spacing-top: 0.6875rem;
+}
+
+h6 {
+  --pico-font-size: 1rem;
+  --pico-font-weight: 700;
+  --pico-line-height: 1.25;
+  --pico-typography-spacing-top: 0.5rem;
+}
+
+/* gold square before section headings, same as the native "▇  " prefix; drawn as a box so it matches the cap height in any font */
+h4:not(.stat-block *, .stats *)::before {
+  content: "";
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  margin-right: 0.4em;
+  background-color: var(--gold-color);
+}
+
+/* thin display font for any heading, e.g. <h3 class="thin"> */
+.thin,
+.band {
+  --pico-font-weight: 100;
+  font-family: "Eveleth Clean", var(--pico-font-family);
+}
+
+/* thin heading on a translucent band of its own color, e.g. <h3 class="band"> */
+.band {
+  /* own formatting context: sits beside floats (e.g. .card-button) instead of running its background underneath */
+  display: flow-root;
+  padding: 0.15em 0.35em;
+  background-color: color-mix(in srgb, currentColor 12%, white);
+}
+
+.large {
+  font-size: 3rem;
+}
+
+h1.title {
+  --pico-font-size: 1.75rem;
+  --pico-line-height: 1.125;
+  --pico-typography-spacing-top: 0rem;
+  --pico-font-weight: 800;
+  text-transform: uppercase;
+}
+
+hgroup {
+  margin-bottom: 0.6rem;
+
+  h1 {
+    margin-bottom: 0.3rem;
+  }
+}
+
+/* :last-child to outrank Pico's muted hgroup subtitle rule */
+hgroup>.subtitle:last-child {
+  --pico-color: var(--dark-color);
+  font-size: 1rem;
+  line-height: 1.25;
+  font-style: italic;
+}
+
+/* table entity: title left, roll button top right */
+hgroup.table-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+
+  h1 {
+    min-width: 0;
+  }
+
+  /* hgroup.table-header outranks Pico's muted hgroup subtitle rule on the last child */
+  >.table-roll {
+    --pico-color: #fff;
+    --pico-text-decoration: none;
+    flex: none;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    background-color: var(--primary-color);
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    &:active {
+      opacity: 0.7;
+    }
+  }
+}
+
+ul {
+  margin: 0 0 var(--pico-typography-spacing-vertical);
+  padding-left: 1.75em;
+
+  li {
+    list-style-type: disc;
+    margin-bottom: calc(var(--pico-typography-spacing-vertical) * 0.25);
+    padding-left: 0em;
+  }
+
+  ul {
+    margin-top: calc(var(--pico-typography-spacing-vertical) * 0.25);
+    margin-bottom: 0;
+  }
+}
+
+
+/* sidebar box: theme colored rules above and below, tinted background */
+blockquote {
+  padding: var(--pico-spacing);
+  border-top: 2px solid var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  border-inline: none;
+  background-color: color-mix(in srgb, var(--primary-color) 12%, white);
+}
+
+pre.code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* body size is not calculated properly without this */
+p:last-child {
+  margin: 0;
+}
+
+/* base stat block used in adversaries */
+
+.stat-block {
+  --pico-color: var(--dark-color);
+  --pico-typography-spacing-vertical: 0.25rem;
+
+  --pico-h1-color: var(--dark-color);
+  --pico-h2-color: var(--dark-color);
+  --pico-h3-color: var(--dark-color);
+  --pico-h4-color: var(--dark-color);
+  --pico-h5-color: var(--dark-color);
+  --pico-h6-color: var(--dark-color);
+
+  --pico-primary-hover: #000;
+  --pico-primary-hover-underline: #000;
+
+  line-height: 1.33;
+  margin: -0.4rem;
+  padding: 0.6rem;
+  border-radius: 0.6rem;
+  border: 2px solid var(--primary-color);
+  background-color: var(--primary-bg-color);
+
+  .token {
+    float: right;
+    margin-left: 1rem;
+    width: 3rem;
+    height: 3rem
+  }
+
+  hgroup {
+    margin-bottom: 0.1rem;
+
+    h1.title {
+      font-size: 1.7rem;
+      margin-bottom: 0.1rem;
+      --pico-color: var(--dark-color);
+    }
+  }
+
+  hgroup>.subtitle:last-child {
+    --pico-color: var(--dark-color);
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.15;
+    font-family: "Zilla Slab";
+  }
+
+  .descr {
+    p {
+      font-style: italic;
+    }
+  }
+
+  .box {
+    padding: 0.5rem 0.8rem;
+    background-color: white;
+    margin-top: 0.4rem;
+    border-top: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+
+    hr {
+      margin-left: -0.6rem;
+      margin-right: -0.6rem;
+      height: 0;
+      background: none;
+      border: none;
+      border-top: 2px dotted var(--primary-color);
+    }
+  }
+
+  .features {
+    p {
+      padding-left: 0.6em;
+    }
+
+    p:has(> em:first-child > strong) {
+      text-indent: -0.6em;
+    }
+
+    ul {
+      padding-left: 2.2em;
+
+      li {
+        text-indent: -0.8em;
+      }
+    }
+
+    h4 {
+      --pico-font-size: 1.3rem;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+      margin-bottom: 0.2rem;
+    }
+  }
+
+  a {
+    --pico-color: var(--dark-brown-color);
+    --pico-underline: var(--dark-brown-color);
+  }
+
+  hr {
+    margin: 0.4rem 0;
+    height: 1px;
+    background-color: #333;
+    border: none;
+  }
+}
+
+@media (min-width: 476px) {
+  .stat-block {
+    padding: 0.8rem;
+    margin: 0rem;
+
+    .token {
+      width: 4.5rem;
+      height: 4.5rem
+    }
+  }
+}
+
+#adversary {
+  --primary-color: var(--brick-color);
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
+
+  .stat-block {
+    --primary-color: var(--sand-color);
+    --primary-bg-color: var(--parchment-color);
+  }
+}
+
+#environment {
+  --primary-color: var(--gray-color);
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
+
+  .stat-block {
+    --primary-color: var(--gray-color);
+    --primary-bg-color: var(--light-gray-color);
+  }
+}
+
+#ancestry,
+#community,
+#transformation,
+#beastform {
+  --primary-color: var(--green-color);
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
+}
+
+#class,
+#subclass {
+  --primary-color: var(--brass-color);
+}
+
+#table {
+  --primary-color: var(--sienna-color);
+}
+
+#class {
+  section.stats {
+    --text-color: white;
+    --pico-color: var(--text-color);
+
+    --pico-primary: var(--text-color);
+    --pico-primary-underline: var(--text-color);
+
+    --pico-primary-hover: var(--primary-color);
+    --pico-primary-hover-underline: var(--primary-color);
+
+    --pico-h1-color: var(--text-color);
+    --pico-h2-color: var(--text-color);
+    --pico-h3-color: var(--text-color);
+    --pico-h4-color: var(--text-color);
+    --pico-h5-color: var(--text-color);
+    --pico-h6-color: var(--text-color);
+
+    hgroup>.subtitle:last-child {
+      --pico-color: white;
+    }
+
+    background-color: #1C2917;
+    /* subtle diagonal light: a touch lighter top left, a touch darker bottom right */
+    background-image: linear-gradient(to bottom right,
+      color-mix(in srgb, #1C2917, white 6%),
+      color-mix(in srgb, #1C2917, black 20%));
+
+
+    margin: calc(-1 * var(--pico-spacing));
+    padding: var(--pico-spacing);
+    margin-bottom: calc(1.4 * var(--pico-spacing));
+
+    blockquote {
+      background-color: transparent;
+      border-top: none;
+      border-bottom: none;
+      border-left: 3px solid var(--primary-color);
+    }
+
+    .features {
+
+      /* indent everything below the heading */
+      > :not(h4) {
+        padding-left: 0.6em;
+      }
+
+      ul {
+        padding-left: 2.2em;
+      }
+    }
+  }
+}
+
+section.questions {
+  --primary-color: var(--brass-color);
+
+  --pico-primary-hover: var(--primary-color);
+  --pico-primary-hover-underline: var(--primary-color);
+
+  --pico-h1-color: var(--primary-color);
+  --pico-h2-color: var(--primary-color);
+  --pico-h3-color: var(--primary-color);
+  --pico-h4-color: var(--primary-color);
+  --pico-h5-color: var(--primary-color);
+  --pico-h6-color: var(--primary-color);
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    --pico-font-weight: 100;
+    font-family: "Eveleth Clean", var(--pico-font-family);
+  }
+
+  background-color: color-mix(in srgb, var(--primary-color) 12%, white);
+
+  margin: calc(-1 * var(--pico-spacing));
+  padding: var(--pico-spacing);
+  margin-block: calc(2 * var(--pico-spacing));
+}
+
+#page {
+  --primary-color: var(--slate-color);
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
+}
+
+/*
+  scroll box for a table wider than the page, e.g. <div class="table-responsive"><table>…</table></div>;
+  on the table itself it scrolls too, but then sizes to its content instead of the full width
+*/
+.table-responsive {
+  margin-bottom: var(--pico-spacing);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+
+  >table {
+    margin-bottom: 0;
+  }
+}
+
+table.table-responsive {
+  display: block;
+}
+
+/* full width, header on the theme color, every other row tinted with it */
+table {
+  --pico-background-color: none;
+  margin-bottom: var(--pico-spacing);
+  width: 100%;
+
+  td,
+  th {
+    padding: 0.4rem 0.6rem;
+    border: none;
+  }
+
+  tfoot td,
+  tfoot th,
+  thead td,
+  thead th {
+    font-size: 0.9rem;
+    --pico-font-weight: 600;
+  }
+
+  thead td,
+  thead th {
+    --pico-font-weight: 800;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-transform: uppercase;
+
+    a {
+      color: inherit;
+      text-decoration-color: currentColor;
+    }
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: color-mix(in srgb, var(--primary-color) 12%, white);
+  }
+}
+
+/* black or white header text, whichever reads better on the theme color (white on light sand would be unreadable) */
+@supports (color: contrast-color(red)) {
+  table :is(thead td, thead th) {
+    color: contrast-color(var(--primary-color));
+  }
+}
+
+.stat-block:not(:only-child) {
+  margin-bottom: 1rem;
+}
+
+.tags {
+  display: flex;
+  gap: 0.5rem;
+
+  .tag {
+    display: inline-block;
+    border: 1px solid var(--primary-color);
+    border-radius: 6px;
+    background-color: white;
+    padding: 0.3rem 0.5rem;
+    text-transform: uppercase;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+}
+
+/*
+  tabs: [role=tablist] holds [role=tab] buttons, each aria-controls the id of a content block;
+  only the selected block is visible, the others get the hidden attribute
+*/
+.tab-bar {
+  display: flex;
+  margin-bottom: 1rem;
+
+  button {
+    flex: 1;
+    margin: 0;
+    padding: 0.5rem;
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+
+  button[aria-selected="true"] {
+    color: white;
+  }
+
+  /* section tabs in the .band heading style; names wrap instead of scrolling sideways */
+  &.band-tabs {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+
+    button {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0.5em 0.5em;
+      border-bottom: none;
+      background-color: color-mix(in srgb, var(--primary-color) 12%, white);
+      color: var(--primary-color);
+      font-family: "Eveleth Clean", var(--pico-font-family);
+      font-size: 1.15rem;
+      font-weight: 100;
+      line-height: 1.15;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    button[aria-selected="true"] {
+      background-color: var(--primary-color);
+      color: white;
+    }
+  }
+}
+
+/* playing card, html version of the native card partials (views/partials/*-card.json) */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 0.71345;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  border: 2px solid #fde07d;
+  border-radius: 20px;
+  background-color: #fff;
+  font-family: "Open Sans", sans-serif;
+  color: #000;
+
+  >.card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  /* reveals the image above the divider, gives way to longer text */
+  >.card-spacer {
+    flex: 0 1 210px;
+    min-height: 120px;
+  }
+
+  /* divider and text layered on top of each other */
+  >.card-content {
+    position: relative;
+    display: grid;
+    flex: none;
+
+    >* {
+      grid-area: 1 / 1;
+    }
+  }
+
+  /* divider image, white below it so the card image doesn't show under the text */
+  .card-divider {
+    display: grid;
+
+    >* {
+      grid-area: 1 / 1;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  .card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.8rem;
+    background-color: white;
+  }
+
+  .card-title {
+    --pico-font-size: 1.5rem;
+    --pico-line-height: 1.2;
+    --pico-font-weight: 800;
+    --pico-typography-spacing-top: 0;
+    margin: 0;
+    color: #000;
+    text-transform: uppercase;
+  }
+
+  .card-subtitle,
+  .card-body {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.2;
+  }
+
+  .card-subtitle {
+    font-style: italic;
+  }
+
+  .card-body p {
+    margin-bottom: 0.5rem;
+  }
+
+  /* tighter list items; markdown wraps items of a loose list in <p>, which would add the paragraph gap */
+  .card-text ul {
+    margin-bottom: 0.5rem;
+
+    li {
+      margin-bottom: 0.1rem;
+    }
+
+    li>p {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* domain card, html version of views/domain-card.json: banner and recall cost over the image, divider above the text */
+.domain-card {
+
+  /* banner left, recall cost right, painted over the image */
+  >.card-header {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .card-banner,
+  .card-recall {
+    display: grid;
+    justify-items: center;
+
+    >* {
+      grid-area: 1 / 1;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      max-height: 140px;
+    }
+  }
+
+  .card-banner {
+    width: 4.8rem;
+  }
+
+  .card-level {
+    padding-top: 1.1rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #fff;
+  }
+
+  /* light banners */
+  &.domain-bone .card-level,
+  &.domain-splendor .card-level {
+    color: #000;
+  }
+
+  .card-recall {
+    width: 2.8rem;
+    margin-top: 20px;
+    align-items: center;
+
+    span {
+      padding-right: 0.5rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+  }
+
+  /* divider and text stacked */
+  >.card-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* card type centered on the divider */
+  .card-divider {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    margin-bottom: -1px;
+
+    >* {
+      grid-area: 1 / 1;
+    }
+  }
+
+  .card-type {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  .card-title {
+    --pico-font-size: 1.5rem;
+    text-align: center;
+  }
+}
+
+/* ancestry card */
+.ancestry-card {
+
+  /* white below the divider image down to the end of the text, the card image is taller than the divider on narrow cards */
+  .card-divider {
+    grid-template-rows: auto 1fr;
+
+    &::after {
+      content: "";
+      grid-row: 2;
+      background-color: #fff;
+    }
+  }
+
+  /* transparent so the divider shows through */
+  .card-text {
+    position: relative;
+    z-index: 1;
+    background-color: transparent;
+  }
+
+  .card-title {
+    --pico-font-size: 2rem;
+    margin-top: 1.2rem;
+  }
+}
+
+.community-card {
+
+  >.card-spacer {
+    flex: 0 1 160px;
+    min-height: 120px;
+  }
+
+  >.card-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-title {
+    --pico-font-size: 2rem;
+  }
+}
+
+/* subclass card, html version of views/partials/subclass-card.json: class banner over the image, divider above the text */
+.subclass-card {
+
+  /* banner top left, painted over the image */
+  >.card-header {
+    position: absolute;
+    top: 0;
+    left: 20px;
+  }
+
+  .card-banner {
+    display: block;
+    width: 75px;
+  }
+
+  >.card-spacer {
+    flex-basis: 200px;
+  }
+
+  /* divider and text stacked */
+  >.card-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* class name centered on the divider */
+  .card-divider {
+    align-items: center;
+    justify-items: center;
+    margin-bottom: -1px;
+  }
+
+  .card-type {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  .card-text {
+    gap: 0;
+    padding: 2px 12px 12px;
+  }
+
+  .card-title,
+  .card-subtitle,
+  .card-spellcast-trait {
+    text-align: center;
+  }
+
+  .card-subtitle {
+    padding-bottom: 0.3rem;
+  }
+
+  .card-spellcast-trait {
+    text-transform: uppercase;
+  }
+
+  /* only the tier picked below the card is shown */
+  .card-tier {
+    display: none;
+
+    >p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.2;
+    }
+
+    >.card-body {
+      padding-top: 8px;
+    }
+  }
+}
+
+/* card with its tier picker below, as the menu button in subclass-card.json */
+.subclass-card-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+
+  &:has(input[value="foundation"]:checked) [data-tier="foundation"],
+  &:has(input[value="specialization"]:checked) [data-tier="specialization"],
+  &:has(input[value="mastery"]:checked) [data-tier="mastery"] {
+    display: block;
+  }
+}
+
+/* pill button centered under the card, tiers in its pull-down list */
+details.card-tier-picker {
+  --picker-color: var(--dark-color);
+  --picker-button-bg: rgba(120, 120, 128, 0.12);
+  --picker-pressed-bg: rgba(120, 120, 128, 0.24);
+  --picker-menu-bg: rgba(254, 254, 252, 0.8);
+
+  position: relative;
+  margin: 0;
+
+  summary {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0.35rem 0.7rem 0.35rem 0.9rem;
+    border-radius: 999px;
+    background-color: var(--picker-button-bg);
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--picker-color);
+    text-transform: uppercase;
+    list-style: none;
+
+    /* pico's chevron, replaced by the svg */
+    &::after {
+      display: none;
+    }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    /* only the checked tier's name, see .subclass-card-stack */
+    span {
+      display: none;
+    }
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    &:active {
+      background-color: var(--picker-pressed-bg);
+    }
+  }
+
+  &[open]>summary {
+    margin-bottom: 0;
+  }
+
+  /* pull-down list centered under the button */
+  fieldset {
+    position: absolute;
+    top: calc(100% + 0.375rem);
+    left: 50%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    min-width: 10rem;
+    margin: 0;
+    padding: 0.25rem;
+    border: none;
+    border-radius: 0.75rem;
+    background-color: var(--picker-menu-bg);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateX(-50%);
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin: 0;
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    color: var(--picker-color);
+    cursor: pointer;
+
+    /* checkmark slot keeps labels aligned */
+    &::before {
+      content: "";
+      width: 0.75rem;
+    }
+
+    &:has(input:checked)::before {
+      content: "✓";
+    }
+
+    &:active {
+      background-color: var(--picker-pressed-bg);
+    }
+  }
+
+  /* visually hidden, still focusable */
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+/* dark scheme, the page's light block pins --pico-color to --dark-color so the picker sets its own */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=light]) details.card-tier-picker {
+    --picker-color: var(--light-color);
+    --picker-button-bg: rgba(120, 120, 128, 0.32);
+    --picker-pressed-bg: rgba(120, 120, 128, 0.48);
+    --picker-menu-bg: rgba(44, 44, 46, 0.8);
+  }
+}
+
+[data-theme=dark] details.card-tier-picker {
+  --picker-color: var(--light-color);
+  --picker-button-bg: rgba(120, 120, 128, 0.32);
+  --picker-pressed-bg: rgba(120, 120, 128, 0.48);
+  --picker-menu-bg: rgba(44, 44, 46, 0.8);
+}
+
+/*
+  centers a card on screen; transform moves it visually without changing layout,
+  so the page still reports the card's own height (auto-sized webviews get 0 offset)
+  offset = half the viewport - half own height (%) - main's top padding, never negative
+*/
+.card-stage {
+  display: flex;
+  justify-content: center;
+  transform: translateY(max(0px, calc(50dvh - 50% - var(--pico-block-spacing-vertical))));
+}
+
+/* card thumbnail floating to the right of the text, golden frame like the card, opens a dialog (data-modal) on tap */
+.card-button {
+  float: right;
+  max-height: 60px;
+  margin: 0 0 1rem 1rem;
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid #fde07d;
+  border-radius: 12px;
+  background: none;
+  box-shadow: none;
+
+  img {
+    display: block;
+    max-height: 60px;
+    width: auto;
+  }
+
+  &:active {
+    opacity: 0.7;
+  }
+}
+
+/* no card image: plain round button with a three-line icon instead of the thumbnail */
+.card-button.card-button-icon {
+  --card-icon-color: var(--dark-color);
+  --card-icon-bg: rgba(120, 120, 128, 0.12);
+  --card-icon-pressed-bg: rgba(120, 120, 128, 0.24);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--card-icon-bg);
+  color: var(--card-icon-color);
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  &:active {
+    opacity: 1;
+    background-color: var(--card-icon-pressed-bg);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=light]) .card-button.card-button-icon {
+    --card-icon-color: var(--light-color);
+    --card-icon-bg: rgba(120, 120, 128, 0.32);
+    --card-icon-pressed-bg: rgba(120, 120, 128, 0.48);
+  }
+}
+
+[data-theme=dark] .card-button.card-button-icon {
+  --card-icon-color: var(--light-color);
+  --card-icon-bg: rgba(120, 120, 128, 0.32);
+  --card-icon-pressed-bg: rgba(120, 120, 128, 0.48);
+}
+
+/* section break below the thumbnail doesn't run underneath it */
+.card-button~hr {
+  clear: both;
+}
+
+@media (min-width: 476px) {
+  .card-button {
+    max-height: 80px;
+
+    img {
+      max-height: 80px;
+    }
+  }
+}
+
+/* card shown in a modal dialog, pico's dialog provides the blurred full screen backdrop */
+dialog.card-modal {
+  --modal-header-color: var(--dark-color);
+  --modal-header-bg: rgba(120, 120, 128, 0.2);
+  --modal-header-border: rgba(0, 0, 0, 0.05);
+
+  height: 100%;
+  max-height: none;
+  padding: var(--pico-spacing);
+  /* scrolls when the card doesn't fit (landscape, large text) */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  /* card with the close button above its top left corner; taps on the empty area fall through to the backdrop */
+  >.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    width: min(100%, 360px);
+    /* centered when it fits, starts at the top when taller than the screen (align-items: center would cut the top off) */
+    margin: auto;
+    pointer-events: none;
+
+    >* {
+      pointer-events: auto;
+    }
+  }
+
+  .card {
+    margin: 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  }
+
+  /* full card width pill with the name centered on the card, close button inside its left end */
+  .modal-header {
+    display: grid;
+    align-self: stretch;
+    align-items: center;
+
+    >* {
+      grid-area: 1 / 1;
+    }
+
+    form {
+      z-index: 1;
+      justify-self: start;
+      margin: 0;
+    }
+  }
+
+  .modal-title {
+    --pico-font-size: 0.95rem;
+    --pico-line-height: 1.2;
+    --pico-font-weight: 800;
+    --pico-typography-spacing-top: 0;
+    margin: 0;
+    /* same room on both sides as the close button takes, keeps the text centered on the card */
+    min-height: 2rem;
+    padding: 0.4rem 2.5rem;
+    overflow: hidden;
+    border-radius: 999px;
+    border: 1px solid var(--modal-header-border);
+    background-color: var(--modal-header-bg);
+    color: var(--modal-header-color);
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  &[open]>.modal-content {
+    animation: card-modal-in 0.2s ease-out;
+  }
+}
+
+/* dark scheme, light text on the dark blurred backdrop */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=light]) dialog.card-modal {
+    --modal-header-color: var(--light-color);
+    --modal-header-bg: rgba(120, 120, 128, 0.36);
+    --modal-header-border: rgba(255, 255, 255, 0.08);
+  }
+}
+
+[data-theme=dark] dialog.card-modal {
+  --modal-header-color: var(--light-color);
+  --modal-header-bg: rgba(120, 120, 128, 0.36);
+  --modal-header-border: rgba(255, 255, 255, 0.08);
+}
+
+@keyframes card-modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}
+
+.modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background-color: transparent;
+  box-shadow: none;
+  color: var(--modal-header-color, var(--dark-color));
+  position: relative;
+
+  svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
+
+  /* invisible tap area grows the 32px button to the 44pt minimum touch target */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -0.375rem;
+    border-radius: 999px;
+  }
+}
+
+/* page behind an open modal doesn't scroll */
+html:has(dialog[open]) {
+  overflow: hidden;
+}

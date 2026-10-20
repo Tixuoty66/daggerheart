@@ -1,0 +1,3 @@
+{% if data.trait %}**{{data.trait|map: 'Trait'}}** {{data.traitModifier|default: 0|signed}} | {% endif %}**{{'Common.Evasion'|l}}** {{data.evasionModifier|default: 0|signed}}
+{% if data.attack %}**{{'Common.Attack'|l}}:** {{data.attack.range|map: 'Range'|default: '-'}} | {{data.attack.trait|map: 'Trait'|default: '-'}} | {{data.attack.damage}}{{data.attack.damageType|prefix: ' '}}
+{% endif %}{% if data.advantages %}**{{'Beastform.GainAdvantageOn'|l}}:** {% for advantage in data.advantages %}{{advantage|map: 'BeastformAdvantage'}}{% if forloop.last != true %}, {% endif %}{% endfor %}{% endif %}

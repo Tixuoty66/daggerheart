@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="weapon" class="container-fluid">
+
+  <hgroup>
+    <h1 class="title">{{name}}</h1>
+    <p class="subtitle">{% if data.category %}{{data.category|map: 'WeaponCategory'}}{% else %}{{'Entity.Weapon'|l}}{% endif %} - {% if data.type %}{{data.type|map: 'WeaponType'}} - {% endif %}{{data.tier|map: 'Tier'}}</p>
+  </hgroup>
+
+  {% markdown -%}
+  {% include "weapon-primary.md" %}
+  {% endmarkdown %}
+    
+  {% if descr %}
+  {{descr|md}}
+  {% endif %}
+
+  {% if notes %}
+  <h3>{{'Common.Notes'|l}}</h3>
+  {{notes|md}}
+  {% endif %}
+
+  {% if image %}
+  <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
+    <a href="{{image|resolvePath}}" target="_blank"><img style="height: 100%; max-height: 512px;" src="{{image|resolvePath}}" /></a>
+  </div>
+  {% endif %}
+
+  {% include "footer.html" %}
+</main>
+{% endblock %}

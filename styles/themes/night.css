@@ -1,0 +1,29 @@
+:root[data-view-theme="night"] {
+  main {
+    background-image: none;
+    background-repeat: repeat;
+  }
+}
+
+[data-view-theme="night"] {
+  
+  --pico-color: var(--light-color);
+  --primary-color: var(--light-color);
+  --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, black);
+
+  #page {
+    --pico-color: var(--light-color);
+  }
+
+  #adversary {
+    --pico-color: var(--light-color);
+    /* --primary-color: var(--light-color); */
+    --primary-bg-color: color-mix(in srgb, var(--primary-color) 12%, white);
+
+    .stat-block {
+      --pico-color: var(--light-color);
+      --primary-color: olor-mix(in srgb, var(--bronze-color) 12%, black);
+      --primary-bg-color: color-mix(in srgb, var(--parchment-color) 22%, black);
+    }
+  }
+}

@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="class" class="container-fluid">
+
+  <section class="stats">
+    <hgroup>
+      <h1 class="thin large">{{name}}</h1>
+      <p class="subtitle">{{data.descr}}</p>
+    </hgroup>
+
+    {% if descr %}
+    {{descr|md}}
+    {% endif %}
+
+    <div class="features">
+      {% markdown -%}
+      {% include 'class-primary.md' %}
+      {% endmarkdown %}
+    </div>
+    
+  </section>
+  
+  <h2>{{name}} {{'Entity.Subclass.many'|l}}</h2>
+
+  {% query subclasses entity="Subclass" filter="data.class ==[c] $name" sort="name" %}
+
+  {% if subclasses %}
+  <div class="tab-bar band-tabs" role="tablist">
+    {% for subclass in subclasses %}
+    <button type="button" role="tab" aria-controls="subclass-{{ forloop.counter }}"{% if forloop.first %} aria-selected="true"{% endif %}>{{ subclass.name }}</button>
+    {% endfor %}
+  </div>
+
+  {% for subclass in subclasses %}
+  <div id="subclass-{{ forloop.counter }}" role="tabpanel"{% if not forloop.first %} hidden{% endif %}>
+    {{ subclass.descr|md }}
+
+    {% markdown -%}
+    {% include 'subclass-primary.md' subclass %}
+    {% endmarkdown %}
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  <section class="questions">
+    {% markdown -%}
+    {% include 'class-questions.md' %}
+    {% endmarkdown %}
+  </section>
+  
+
+  {% if notes %}
+  <h3>{{'Common.Notes'|l}}</h3>
+  {{notes|md}}
+  {% endif %}
+
+  {% include "footer.html" %}
+
+  <!-- card preview, also opened by linking to this page with #ancestry-card -->
+  <dialog id="ancestry-card" class="card-modal" aria-labelledby="ancestry-card-title">
+    <div class="modal-content">
+      <div class="modal-header">
+        <form method="dialog">
+          <button class="modal-close" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
+        </form>
+        <h2 id="ancestry-card-title" class="modal-title">{{name}}</h2>
+      </div>
+
+      {% include "ancestry-card.html" %}
+    </div>
+  </dialog>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // open dialog ids, kept across reloadMainSection() which replaces <main> and calls initialize()
+  const openModals = new Set([location.hash.slice(1)]);
+
+  function initializeModals() {
+    document.querySelectorAll("button[data-modal]").forEach(button => {
+      button.addEventListener("click", () => {
+        const dialog = document.getElementById(button.dataset.modal);
+        if (dialog && !dialog.open) dialog.showModal();
+        openModals.add(button.dataset.modal);
+      });
+    });
+
+    document.querySelectorAll("dialog").forEach(dialog => {
+      // a tap on the backdrop hits the dialog itself, a tap on its content doesn't
+      dialog.addEventListener("click", event => {
+        if (event.target === dialog) dialog.close();
+      });
+      dialog.addEventListener("close", () => openModals.delete(dialog.id));
+
+      if (openModals.has(dialog.id) && !dialog.open) dialog.showModal();
+    });
+  }
+
+  window.addEventListener("hashchange", () => {
+    const dialog = document.getElementById(location.hash.slice(1));
+    if (dialog instanceof HTMLDialogElement && !dialog.open) {
+      dialog.showModal();
+      openModals.add(dialog.id);
+    }
+  });
+
+  // selected content id per tablist, kept across reloadMainSection()
+  const selectedTabs = [];
+
+  function initializeTabs() {
+    document.querySelectorAll("[role=tablist]").forEach((tablist, group) => {
+      const tabs = [...tablist.querySelectorAll("[role=tab][aria-controls]")];
+
+      function select(id) {
+        tabs.forEach(tab => {
+          const selected = tab.getAttribute("aria-controls") === id;
+          tab.setAttribute("aria-selected", selected);
+          const content = document.getElementById(tab.getAttribute("aria-controls"));
+          if (content) content.hidden = !selected;
+        });
+        selectedTabs[group] = id;
+      }
+
+      tabs.forEach(tab => {
+        tab.addEventListener("click", () => select(tab.getAttribute("aria-controls")));
+      });
+
+      const initial = tabs.find(tab => tab.getAttribute("aria-controls") === selectedTabs[group])
+        ?? tabs.find(tab => tab.getAttribute("aria-selected") === "true")
+        ?? tabs[0];
+      if (initial) select(initial.getAttribute("aria-controls"));
+    });
+  }
+
+  window.initialize = () => {
+    initializeModals();
+    initializeTabs();
+  };
+  window.initialize();
+</script>
+{% endblock %}

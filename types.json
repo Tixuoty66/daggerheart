@@ -65,6 +65,22 @@
     "presence": "Trait.Presence",
     "knowledge": "Trait.Knowledge",
   },
+  "BeastformAdvantage": {
+    "attack": "BeastformAdvantage.Attack",
+    "climb": "BeastformAdvantage.Climb",
+    "deceive": "BeastformAdvantage.Deceive",
+    "dig": "BeastformAdvantage.Dig",
+    "distract": "BeastformAdvantage.Distract",
+    "leap": "BeastformAdvantage.Leap",
+    "locate": "BeastformAdvantage.Locate",
+    "navigate": "BeastformAdvantage.Navigate",
+    "protect": "BeastformAdvantage.Protect",
+    "scare": "BeastformAdvantage.Scare",
+    "sneak": "BeastformAdvantage.Sneak",
+    "sprint": "BeastformAdvantage.Sprint",
+    "swim": "BeastformAdvantage.Swim",
+    "track": "BeastformAdvantage.Track"
+  },
   "WeaponCategory": {
     "primary": "WeaponCategory.PrimaryWeapon",
     "secondary": "WeaponCategory.SecondaryWeapon"
@@ -85,6 +101,7 @@
   },
   "RuleType": {
     "condition": "RuleType.Condition",
+    "domain": "RuleType.Domain",
     "source": "Common.Source",
     "other": "RuleType.Other"
   },
@@ -97,7 +114,8 @@
     "midnight": "Domain.Midnight",
     "sage": "Domain.Sage",
     "splendor": "Domain.Splendor",
-    "valor": "Domain.Valor"
+    "valor": "Domain.Valor",
+    "dread": "Domain.Dread"
   },
   "DomainCardType": {
     "ability": "DomainCardType.Ability",

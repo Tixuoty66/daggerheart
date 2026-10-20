@@ -1,0 +1,98 @@
+{
+  "sections": [
+    {
+      "type": "group",
+      "fields": [
+        {
+          "title": "Common.Tier",
+          "type": "picker",
+          "attribute": "data.tier",
+          "attributeType": "Tier"
+        },
+        {
+          "title": "Beastform.Examples",
+          "attribute": "data.examples"
+        },
+      ]
+    },
+    {
+      "type": "group",
+      "fields": [
+        {
+          "title": "Common.Trait",
+          "type": "picker",
+          "attribute": "data.trait",
+          "attributeType": "Trait"
+        },
+        {
+          "title": "Beastform.TraitBonus",
+          "type": "number",
+          "attribute": "data.traitModifier"
+        },
+        {
+          "title": "Beastform.EvasionBonus",
+          "type": "number",
+          "attribute": "data.evasionModifier"
+        },
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Common.Attack",
+      "fields": [
+        {
+          "title": "Common.Range",
+          "type": "picker",
+          "attribute": "data.attack.range",
+          "attributeType": "Range"
+        },
+        {
+          "title": "Common.Trait",
+          "type": "picker",
+          "attribute": "data.attack.trait",
+          "attributeType": "Trait"
+        },
+        {
+          "title": "Common.Damage",
+          "attribute": "data.attack.damage"
+        },
+        {
+          "title": "Common.DamageType",
+          "type": "picker",
+          "attribute": "data.attack.damageType",
+          "attributeType": "Damage"
+        },
+      ]
+    },
+    {
+      "type": "group",
+      "fields": [
+        {
+          "title": "Beastform.Advantages",
+          "type": "multiPicker",
+          "attribute": "data.advantages",
+          "attributeType": "BeastformAdvantage"
+        },
+      ]
+    },
+    {
+      "title": "Beastform.BeastformFeatures",
+      "type": "list",
+      "attribute": "data.features",
+      "form": {
+        "title": "Common.Feature",
+        "partial": "generic-feature"
+      }
+    },
+    {
+      "title": "Common.Description",
+      "type": "group",
+      "fields": [
+        {
+          "type": "textArea",
+          "attribute": "descr"
+        }
+      ]
+    },
+  ]
+}

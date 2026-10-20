@@ -1,0 +1,46 @@
+{
+  "sections": [
+    {
+      "title": "Common.ShortDescription",
+      "type": "group",
+      "fields": [
+        {
+          "type": "textArea",
+          "attribute": "data.descr",
+          "custom": {
+            "lines": 2
+          },
+        }
+      ]
+    },
+    {
+      "title": "Transformation.TransformationFeatures",
+      "type": "list",
+      "attribute": "data.features",
+      "form": {
+        "title": "Common.Feature",
+        "partial": "generic-feature"
+      }
+    },
+    {
+      "title": "Transformation.TransformationQuestions",
+      "type": "group",
+      "fields": [
+        {
+          "type": "textArea",
+          "attribute": "data.questions"
+        }
+      ]
+    },
+    {
+      "title": "Common.Description",
+      "type": "group",
+      "fields": [
+        {
+          "type": "textArea",
+          "attribute": "descr"
+        }
+      ]
+    },
+  ]
+}

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="transformation" class="container-fluid">
+
+  <hgroup>
+    <h1 class="title">{{name}}</h1>
+    <p class="subtitle">{{data.descr}}</p>
+  </hgroup>
+
+  {% if descr %}
+  {{descr|md}}
+  {% endif %}
+
+  {% if data.features %}
+  <div class="features">
+    <h4>{{ 'Transformation.TransformationFeatures'|l }}</h4>
+    {% for feature in data.features %}
+    {% markdown -%}
+    {% if name %}***{{feature.name}}:***{% endif %} {{feature.text}}
+    {% endmarkdown %}
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <section class="questions">
+    {% markdown -%}
+    {% include 'transformation-questions.md' %}
+    {% endmarkdown %}
+  </section>
+
+  {% if notes %}
+  <h3>{{'Common.Notes'|l}}</h3>
+  {{notes|md}}
+  {% endif %}
+
+  {% include "footer.html" %}
+
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // open dialog ids, kept across reloadMainSection() which replaces <main> and calls initialize()
+  const openModals = new Set([location.hash.slice(1)]);
+
+  function initializeModals() {
+    document.querySelectorAll("button[data-modal]").forEach(button => {
+      button.addEventListener("click", () => {
+        const dialog = document.getElementById(button.dataset.modal);
+        if (dialog && !dialog.open) dialog.showModal();
+        openModals.add(button.dataset.modal);
+      });
+    });
+
+    document.querySelectorAll("dialog").forEach(dialog => {
+      // a tap on the backdrop hits the dialog itself, a tap on its content doesn't
+      dialog.addEventListener("click", event => {
+        if (event.target === dialog) dialog.close();
+      });
+      dialog.addEventListener("close", () => openModals.delete(dialog.id));
+
+      if (openModals.has(dialog.id) && !dialog.open) dialog.showModal();
+    });
+  }
+
+  window.addEventListener("hashchange", () => {
+    const dialog = document.getElementById(location.hash.slice(1));
+    if (dialog instanceof HTMLDialogElement && !dialog.open) {
+      dialog.showModal();
+      openModals.add(dialog.id);
+    }
+  });
+
+  // selected content id per tablist, kept across reloadMainSection()
+  const selectedTabs = [];
+
+  function initializeTabs() {
+    document.querySelectorAll("[role=tablist]").forEach((tablist, group) => {
+      const tabs = [...tablist.querySelectorAll("[role=tab][aria-controls]")];
+
+      function select(id) {
+        tabs.forEach(tab => {
+          const selected = tab.getAttribute("aria-controls") === id;
+          tab.setAttribute("aria-selected", selected);
+          const content = document.getElementById(tab.getAttribute("aria-controls"));
+          if (content) content.hidden = !selected;
+        });
+        selectedTabs[group] = id;
+      }
+
+      tabs.forEach(tab => {
+        tab.addEventListener("click", () => select(tab.getAttribute("aria-controls")));
+      });
+
+      const initial = tabs.find(tab => tab.getAttribute("aria-controls") === selectedTabs[group])
+        ?? tabs.find(tab => tab.getAttribute("aria-selected") === "true")
+        ?? tabs[0];
+      if (initial) select(initial.getAttribute("aria-controls"));
+    });
+  }
+
+  window.initialize = () => {
+    initializeModals();
+    initializeTabs();
+  };
+  window.initialize();
+</script>
+{% endblock %}
