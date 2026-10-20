@@ -68,7 +68,7 @@
     }
   ],
   "viewThemes": [
-    { "id": "night", "label": "Night" }
+    { "id": "night", "label": "Night (dark interface)" }
   ],
   "combat": {
     "initiative": {

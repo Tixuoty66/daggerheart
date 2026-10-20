@@ -1,59 +1,65 @@
-/* :root[…] matches the specificity of the light scheme block in default.css, which sets the link colors on :root too */
-:root[data-view-theme="night"] {
-  /* body text a touch below full light, ~12:1 on the dark canvas instead of 15:1, less glare */
-  --night-text-color: color-mix(in srgb, var(--light-color) 90%, black);
+/*
+  night view theme: the dark version of the system for the dark app interface;
+  the page canvas follows the interface (it colors the navigation bar), so in the light interface
+  the theme steps aside and the light, source material style of default.css applies
+*/
+@media (prefers-color-scheme: dark) {
 
-  /* light links, half transparent underline */
-  --pico-primary: var(--night-text-color);
-  --pico-primary-underline: color-mix(in srgb, var(--night-text-color) 50%, transparent);
-  --pico-color: var(--night-text-color);
+  /* :root[…] matches the specificity of the light scheme block in default.css, which sets the text and link colors on :root too */
+  :root[data-view-theme="night"] {
+    /* body text a touch below full light, ~12:1 on the dark canvas instead of 15:1, less glare */
+    --night-text-color: color-mix(in srgb, var(--light-color) 90%, black);
 
-  main {
-    background-image: none;
-    background-repeat: repeat;
+    --pico-color: var(--night-text-color);
 
-    /* gold on hover and tap, the entity colors main uses by default are too dark here */
-    --pico-primary-hover: var(--gold-color);
-    --pico-primary-hover-underline: var(--gold-color);
-  }
-}
+    /* light links, half transparent underline */
+    --pico-primary: var(--night-text-color);
+    --pico-primary-underline: color-mix(in srgb, var(--night-text-color) 50%, transparent);
 
-[data-view-theme="night"] {
+    --primary-color: var(--light-color);
 
-  --primary-color: var(--light-color);
+    /* tints of the theme color mix toward black instead of white, stronger so they still read as a color
+       (table rows, blockquotes, tabs, band headings) */
+    --tint-base-color: black;
+    --tint-amount: 30%;
 
-  /* tints of the theme color mix toward black instead of white, stronger so they still read as a color
-     (table rows, blockquotes, tabs, questions panel) */
-  --tint-base-color: black;
-  --tint-amount: 30%;
+    main {
+      background-image: none;
+      background-repeat: repeat;
 
-  /* stat block on dark: light text, dark backgrounds; ID scoped to outrank the entity themes in default.css */
-  #adversary .stat-block,
-  #environment .stat-block {
-    --stat-block-color: var(--night-text-color);
-    --stat-block-stats-bg: color-mix(in srgb, var(--stat-block-bg) 65%, black);
-    --stat-block-link: var(--sand-color);
-    --stat-block-rule: var(--gray-color);
-  }
+      /* gold on hover and tap, the entity colors main uses by default are too dark here */
+      --pico-primary-hover: var(--gold-color);
+      --pico-primary-hover-underline: var(--gold-color);
+    }
 
-  #adversary .stat-block {
-    --stat-block-border: var(--brass-color);
-    --stat-block-bg: color-mix(in srgb, var(--parchment-color) 22%, black);
-  }
+    /* stat block on dark: light text, dark backgrounds; ID scoped to outrank the entity themes in default.css */
+    #adversary .stat-block,
+    #environment .stat-block {
+      --stat-block-color: var(--night-text-color);
+      --stat-block-stats-bg: color-mix(in srgb, var(--stat-block-bg) 65%, black);
+      --stat-block-link: var(--sand-color);
+      --stat-block-rule: var(--gray-color);
+    }
 
-  #environment .stat-block {
-    --stat-block-bg: color-mix(in srgb, var(--light-gray-color) 22%, black);
-  }
+    #adversary .stat-block {
+      --stat-block-border: var(--brass-color);
+      --stat-block-bg: color-mix(in srgb, var(--parchment-color) 22%, black);
+    }
 
-  /* questions panel (class, transformation): a stronger brass panel than the shared tint, it stands out as a block;
-     gold headings, the thin heading font needs the extra contrast */
-  section.questions {
-    --primary-color: var(--gold-color);
-    --primary-bg-color: color-mix(in srgb, var(--brass-color) 30%, black);
-  }
+    #environment .stat-block {
+      --stat-block-bg: color-mix(in srgb, var(--light-gray-color) 22%, black);
+    }
 
-  /* unselected section tabs (class subclasses): gold label like the questions headings */
-  .tab-bar.band-tabs button:not([aria-selected="true"]) {
-    color: var(--gold-color);
+    /* questions panel (class, transformation): a stronger brass panel than the shared tint, it stands out as a block;
+       gold headings, the thin heading font needs the extra contrast */
+    section.questions {
+      --primary-color: var(--gold-color);
+      --primary-bg-color: color-mix(in srgb, var(--brass-color) 30%, black);
+    }
+
+    /* unselected section tabs (class subclasses): gold label like the questions headings */
+    .tab-bar.band-tabs button:not([aria-selected="true"]) {
+      color: var(--gold-color);
+    }
   }
 }
