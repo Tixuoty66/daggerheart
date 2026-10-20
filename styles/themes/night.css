@@ -20,21 +20,12 @@
 
 [data-view-theme="night"] {
 
-  --pico-color: var(--night-text-color);
   --primary-color: var(--light-color);
 
   /* tints of the theme color mix toward black instead of white, stronger so they still read as a color
      (table rows, blockquotes, tabs, questions panel) */
   --tint-base-color: black;
   --tint-amount: 30%;
-
-  #page {
-    --pico-color: var(--night-text-color);
-  }
-
-  #adversary, #environment {
-    --pico-color: var(--night-text-color);
-  }
 
   /* stat block on dark: light text, dark backgrounds; ID scoped to outrank the entity themes in default.css */
   #adversary .stat-block,
