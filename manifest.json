@@ -7,5 +7,13 @@
   "download": "https://github.com/encounterplus/daggerheart/releases/download/0.9.0/daggerheart.system",
   "compatibility": {
     "minimum": "5.1.0"
-  }
+  },
+  "recommends": [
+    {
+      "id": "daggerheart-srd",
+      "type": "module",
+      "manifest": "https://github.com/encounterplus/daggerheart-srd/releases/latest/download/manifest.json",
+      "reason": "Free SRD content like adversaries, domains and equipment."
+    }
+  ]
 }
