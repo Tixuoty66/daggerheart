@@ -1,0 +1,7 @@
+# Files excluded from the released `daggerheart.system` archive (git archive)
+.gitattributes  export-ignore
+.gitignore      export-ignore
+.github/        export-ignore
+scripts/        export-ignore
+rules/          export-ignore
+README.md       export-ignore
