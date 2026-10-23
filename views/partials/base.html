@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-entity-id="{{id}}" data-kind="{{kind}}" {% if type %} data-type="{{type}}"{% endif %}{% if env.viewTheme %} data-view-theme="{{env.viewTheme}}"{% endif %}>
+<html lang="en" data-entity-id="{{id}}" data-kind="{{kind}}" {% if type %} data-type="{{type}}"{% endif %}{% if env.theme %} data-view-theme="{{env.theme}}"{% endif %}>
 
 <head>
   <meta charset="utf-8">
@@ -7,121 +7,13 @@
   <title>{{name}}</title>
   <link href="{{env.systemURL|default: '/'}}styles/pico.min.css" rel="stylesheet" type="text/css">
   <link href="{{env.systemURL|default: '/'}}styles/default.css" rel="stylesheet" type="text/css">
-  {% if env.viewTheme %}<link href="{{ env.systemURL }}styles/themes/{{ env.viewTheme }}.css" rel="stylesheet" type="text/css">{% endif %}
+  {% if env.theme %}<link href="{{ env.systemURL }}styles/themes/{{ env.theme }}.css" rel="stylesheet" type="text/css">{% endif %}
   {% for href in env.styles %}<link href="{{ href }}" rel="stylesheet" type="text/css">{% endfor %}
 </head>
 
 <body>
   {% block content %}{% endblock %}
-
-  <script>
-  // beta warning: syntax might change in the near feature
-  // this will be invoked from server
-  function handleExternalEvent(event) {
-    console.log(`external event received: ${JSON.stringify(event.name)}`)
-
-    switch (event.name) {
-      case "entityUpdated": 
-        // soft on entity update reload asd
-        reloadMainSection()
-        break;
-      case "mapLoaded":
-        console.log("reloading page")
-        window.location.reload()
-      default:
-        break
-    }
-  }
-
-  function reloadMainSection() {
-    console.log("reload main section");
-
-    fetch(window.location.href)
-      .then(r => r.text())
-      .then(html => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const newContent = doc.querySelector('main');
-
-        if (newContent) {
-          document.querySelector('main').innerHTML = newContent.innerHTML;
-        } else {
-          window.location.reload()
-        }
-
-        // run initialize function to re-bind all events
-        if (typeof window.initialize === 'function') {
-          window.initialize();
-        }
-      });
-  }
-
-  function updateValue(keyPath, value) {
-    console.log(`updating ${keyPath} => ${value}`)
-
-    const entityId = document.querySelector("html").getAttribute("data-entity-id")
-
-    // document.location.reload()
-    var payload = {id: entityId}
-    payload[keyPath] = value
-    // obj = set(obj, keyPath, value)
-
-    let event = {name: 'updateEntity', data: payload}
-
-    console.log(event)
-
-    submitEvent(event)
-  }
-
-
-  // beta warning: syntax might change in the near feature
-  // submit event
-  function submitEvent(event) {
-    let jsonString = JSON.stringify(event)
   
-    if (window.webkit?.messageHandlers?.API) {
-      console.log(`webkit api sending event: ${jsonString}`)
-      window.webkit.messageHandlers.API.postMessage(jsonString)
-    } else if (websocket != null) {
-      console.log(`websocket api sending event: ${jsonString}`)
-      websocket.send(jsonString)
-    } else {
-      alert("No API handlers available")
-    }
-  }
-
-  let websocket = null;
-
-  function initializeWebsocket(ws) {
-    
-    ws.addEventListener("open", () => {
-      console.log("websocket connected");
-    });
-
-    ws.addEventListener("message", (e) => {
-      console.log(`websocket received message: ${e.data}`);
-
-      handleExternalEvent(JSON.parse(e.data));
-    });
-
-    ws.addEventListener("error", (e) => {
-      console.log(`websocket error: ${e}`);
-    });
-
-    ws.addEventListener("close", () => {
-      console.log("websocket disconnected");
-    });
-  }
-
-  if (window.webkit?.messageHandlers?.API == undefined) {
-    console.log("initializing websocket communication to: " + window.location.host);
-
-      const wsUri = "ws://" + window.location.host;
-      websocket = new WebSocket(wsUri);
-
-      initializeWebsocket(websocket);
-    }
-  </script>
   {% block scripts %}{% endblock %}
   {% for src in env.scripts %}<script src="{{ src }}"></script>{% endfor %}
 </body>

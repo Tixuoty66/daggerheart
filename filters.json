@@ -284,4 +284,25 @@
       }
     ]
   },
+  "Rule": {
+    "params": [
+      {
+        "attribute": "type",
+        "attributeType": "RuleType",
+        "title": "Common.Type"
+      },
+      {
+        "attribute": "sources.name",
+        "title": "Common.Source",
+        "dynamic": true
+      }
+    ],
+    "group": [
+      {
+        "attribute": "type",
+        "attributeType": "RuleType",
+        "title": "Common.Type"
+      }
+    ]
+  }
 }
